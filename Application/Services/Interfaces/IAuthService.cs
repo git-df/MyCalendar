@@ -1,4 +1,6 @@
-﻿using Domain.Entity;
+﻿using Application.Models;
+using Application.Responses;
+using Domain.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +11,8 @@ namespace Application.Services.Interfaces
 {
     public interface IAuthService
     {
-        Task<User> Test(User user);
+        Task<ServiceResponse<UserInfoModel>> SignIn(UserSignInModel user);
+        Task<ServiceResponse<UserInfoModel>> SignUp(UserSignUpModel user);
+        Task<ServiceResponse<UserInfoModel>> GetUserInfo(Guid userId);
     }
 }

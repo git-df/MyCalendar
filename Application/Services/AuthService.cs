@@ -1,9 +1,13 @@
-﻿using Application.Services.Interfaces;
+﻿using Application.Models;
+using Application.Responses;
+using Application.Services.Interfaces;
+using AutoMapper;
 using Domain.Entity;
 using Persistance.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,20 +15,113 @@ namespace Application.Services
 {
     public class AuthService : IAuthService
     {
+        private readonly IMapper _mapper;
         private readonly IUserRepository _userRepository;
 
-        public AuthService(IUserRepository userRepository)
+        public AuthService(IMapper mapper, IUserRepository userRepository)
         {
-            _userRepository= userRepository;
+            _mapper = mapper;
+            _userRepository = userRepository;
         }
 
-        public async Task<User> Test(User user)
+        public async Task<ServiceResponse<UserInfoModel>> GetUserInfo(Guid userId)
         {
-            await _userRepository.Create(user);
+            var user = await _userRepository.GetByGuid(userId);
 
-            var a = await _userRepository.GetByEmail("dawidflorian99@gmail.com");
+            if (user != null)
+            {
+                return new ServiceResponse<UserInfoModel>()
+                {
+                    Data = _mapper.Map<UserInfoModel>(user)
+                };
+            }
 
-            return a;
+            return new ServiceResponse<UserInfoModel>()
+            {
+                Success = false,
+                Message = "Nie znaleziono użytkownika o takim id"
+            };
+        }
+
+        public async Task<ServiceResponse<UserInfoModel>> SignIn(UserSignInModel user)
+        {
+            var userFromBase = await _userRepository.GetByEmail(user.Email.ToLower());
+
+            if (userFromBase == null)
+            {
+                return new ServiceResponse<UserInfoModel>()
+                {
+                    Success = false,
+                    Message = "Nie znaleziono użytkownika z takim mailem"
+                };
+            }
+
+            if (userFromBase.Password != HashPassword($"{user.Password}{userFromBase.Salt}"))
+            {
+                return new ServiceResponse<UserInfoModel>()
+                {
+                    Success = false,
+                    Message = "Błędne hasło"
+                };
+            }
+
+            return new ServiceResponse<UserInfoModel>()
+            {
+                Data = _mapper.Map<UserInfoModel>(userFromBase)
+            };
+        }
+
+        public async Task<ServiceResponse<UserInfoModel>> SignUp(UserSignUpModel user)
+        {
+            if (user.Password != user.ConfirmPassword)
+            {
+                return new ServiceResponse<UserInfoModel>()
+                {
+                    Success = false,
+                    Message = "Hasła nie są takie same"
+                };
+            }
+
+            var userFromBase = await _userRepository.GetByEmail(user.Email.ToLower());
+
+            if (userFromBase != null)
+            {
+                return new ServiceResponse<UserInfoModel>()
+                {
+                    Success = false,
+                    Message = "Użytkownik z takim mailem już istnieje"
+                };
+            }
+
+            var newUser = _mapper.Map<User>(user);
+            newUser.FirstName = newUser.FirstName.ToLower();
+            newUser.LastName = newUser.LastName.ToLower();
+            newUser.Email = newUser.Email.ToLower();
+            newUser.Salt = SaltGenerator();
+            newUser.Password = HashPassword($"{user.Password}{newUser.Salt}");
+
+            await _userRepository.Create(newUser);
+
+            return new ServiceResponse<UserInfoModel>()
+            {
+                Data = _mapper.Map<UserInfoModel>(newUser)
+            };
+        }
+
+        string HashPassword(string passwordWithSalt)
+        {
+            SHA256 sHA256 = SHA256.Create();
+            var passwordBytes = Encoding.Default.GetBytes(passwordWithSalt);
+            var passwordHash = sHA256.ComputeHash(passwordBytes);
+            return Convert.ToHexString(passwordHash);
+        }
+
+        string SaltGenerator()
+        {
+            var rng = RandomNumberGenerator.Create();
+            byte[] salt = new byte[32];
+            rng.GetNonZeroBytes(salt);
+            return Convert.ToHexString(salt);
         }
     }
 }

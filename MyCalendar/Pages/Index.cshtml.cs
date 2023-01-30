@@ -1,4 +1,5 @@
-﻿using Application.Services.Interfaces;
+﻿using Application.Models;
+using Application.Services.Interfaces;
 using Domain.Entity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -18,17 +19,20 @@ namespace MyCalendar.Pages
 
         public async Task<IActionResult> OnGetAsync()
         {
-            User newuser = new User()
+            UserSignUpModel user = new UserSignUpModel()
             {
-                Id = Guid.NewGuid(),
                 FirstName = "Dawid",
                 LastName = "Florian",
-                Email = "dawidflorian99@gmail.com",
-                Password = "dc",
-                Salt = "cs"
+                Email = "Cjhwidflorian99@gmail.com",
+                Password = "Haslo123!",
+                ConfirmPassword = "Haslo123!"
             };
 
-            var a = await _authService.Test(newuser);
+            var a = await _authService.SignIn(new UserSignInModel()
+            {
+                Email = user.Email,
+                Password= user.Password
+            });
 
             return Page();
         }
