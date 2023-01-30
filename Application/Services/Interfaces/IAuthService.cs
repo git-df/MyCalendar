@@ -14,5 +14,7 @@ namespace Application.Services.Interfaces
         Task<ServiceResponse<UserInfoModel>> SignIn(UserSignInModel user);
         Task<ServiceResponse<UserInfoModel>> SignUp(UserSignUpModel user);
         Task<ServiceResponse<UserInfoModel>> GetUserInfo(Guid userId);
+        Task<ServiceResponse<UserInfoModel>> PasswordChange(Guid userId, UserPasswordChangeModel userPassword);
+        Task<ServiceResponse<UserInfoModel>> UserDataChange(Guid userId, UserDataChangeModel dataChangeModel);
     }
 }

@@ -28,11 +28,13 @@ namespace MyCalendar.Pages
                 ConfirmPassword = "Haslo123!"
             };
 
-            var a = await _authService.SignIn(new UserSignInModel()
-            {
-                Email = user.Email,
-                Password= user.Password
-            });
+            var a = await _authService.PasswordChange(Guid.Parse("DE110885-A27F-4E3E-31CC-08DB02BCDACC"),
+                new UserPasswordChangeModel()
+                {
+                    OldPassword = "Haslo123!",
+                    Password = "123",
+                    ConfirmPassword = "123"
+                });
 
             return Page();
         }

@@ -28,18 +28,51 @@ namespace Application.Services
         {
             var user = await _userRepository.GetByGuid(userId);
 
-            if (user != null)
+            if (user == null)
             {
                 return new ServiceResponse<UserInfoModel>()
                 {
-                    Data = _mapper.Map<UserInfoModel>(user)
+                    Success = false,
+                    Message = "Nie znaleziono użytkownika o takim id"
                 };
             }
 
             return new ServiceResponse<UserInfoModel>()
             {
-                Success = false,
-                Message = "Nie znaleziono użytkownika o takim id"
+                Data = _mapper.Map<UserInfoModel>(user)
+            };
+        }
+
+        public async Task<ServiceResponse<UserInfoModel>> PasswordChange(Guid userId, UserPasswordChangeModel userPassword)
+        {
+            if (userPassword.Password != userPassword.ConfirmPassword)
+            {
+                return new ServiceResponse<UserInfoModel>()
+                {
+                    Success = false,
+                    Message = "Hasła nie są takie same"
+                };
+            }
+
+            var user = await _userRepository.GetByGuid(userId);
+
+            if (user == null)
+            {
+                return new ServiceResponse<UserInfoModel>()
+                {
+                    Success = false,
+                    Message = "Nie znaleziono użytkownika o takim id"
+                };
+            }
+
+            user.Salt = SaltGenerator();
+            user.Password = HashPassword($"{user.Password}{user.Salt}");
+
+            await _userRepository.Update(user);
+
+            return new ServiceResponse<UserInfoModel>()
+            {
+                Data = _mapper.Map<UserInfoModel>(user)
             };
         }
 
@@ -105,6 +138,30 @@ namespace Application.Services
             return new ServiceResponse<UserInfoModel>()
             {
                 Data = _mapper.Map<UserInfoModel>(newUser)
+            };
+        }
+
+        public async Task<ServiceResponse<UserInfoModel>> UserDataChange(Guid userId, UserDataChangeModel dataChangeModel)
+        {
+            var user = await _userRepository.GetByGuid(userId);
+
+            if (user == null)
+            {
+                return new ServiceResponse<UserInfoModel>()
+                {
+                    Success = false,
+                    Message = "Nie znaleziono użytkownika o takim id"
+                };
+            }
+
+            user.FirstName = dataChangeModel.FirstName.ToLower();
+            user.LastName = dataChangeModel.LastName.ToLower();
+            
+            await _userRepository.Update(user);
+
+            return new ServiceResponse<UserInfoModel>()
+            {
+                Data = _mapper.Map<UserInfoModel>(user)
             };
         }
 

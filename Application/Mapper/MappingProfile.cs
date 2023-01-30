@@ -16,6 +16,7 @@ namespace Application.Mapper
             CreateMap<User, UserSignInModel>().ReverseMap();
             CreateMap<User, UserSignUpModel>().ReverseMap();
             CreateMap<User, UserInfoModel>().ReverseMap();
+            CreateMap<User, UserDataChangeModel>().ReverseMap();
         }
     }
 }
