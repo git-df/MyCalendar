@@ -18,22 +18,22 @@ namespace Persistance.DummyData
                 new Event()
                 {
                     Id = 1,
-                    Title = "",
-                    Description = "",
-                    Label = "",
-                    EventDate = new DateTime(1,1,1),
+                    Title = "Moje urodziny",
+                    Description = "Wielkie święto",
+                    Label = "Urodziny",
+                    EventDate = new DateTime(2000,12,12),
                     MonyhlyEvent = false,
-                    YearlyEvent = false,
+                    YearlyEvent = true,
                     UserId = users[0].Id,
                     CreatedBy = "SYSTEM"
                 },
                 new Event()
                 {
                     Id = 2,
-                    Title = "",
-                    Description = "",
-                    Label = "",
-                    EventDate = new DateTime(1,1,1),
+                    Title = "Wakacje",
+                    Description = "Wyjazd do Włoch",
+                    Label = "Wycieczka",
+                    EventDate = new DateTime(2024,06,01),
                     MonyhlyEvent = false,
                     YearlyEvent = false,
                     UserId = users[0].Id,
@@ -42,217 +42,49 @@ namespace Persistance.DummyData
                 new Event()
                 {
                     Id = 3,
-                    Title = "",
-                    Description = "",
-                    Label = "",
-                    EventDate = new DateTime(1,1,1),
+                    Title = "Urodziny Adama",
+                    Description = "Nie zapomnij wziąść wolne w pracy",
+                    Label = "Urodziny",
+                    EventDate = new DateTime(2000,01,10),
                     MonyhlyEvent = false,
-                    YearlyEvent = false,
+                    YearlyEvent = true,
                     UserId = users[0].Id,
                     CreatedBy = "SYSTEM"
                 },
                 new Event()
                 {
                     Id = 4,
-                    Title = "",
-                    Description = "",
-                    Label = "",
-                    EventDate = new DateTime(1,1,1),
-                    MonyhlyEvent = false,
-                    YearlyEvent = false,
-                    UserId = users[0].Id,
+                    Title = "Rachunek za prąd",
+                    Description = "Nie zapomnij zapłacić",
+                    Label = "Rachunki",
+                    EventDate = new DateTime(2000,01,01),
+                    MonyhlyEvent = true,
+                    YearlyEvent = true,
+                    UserId = users[1].Id,
                     CreatedBy = "SYSTEM"
                 },
                 new Event()
                 {
                     Id = 5,
-                    Title = "",
-                    Description = "",
-                    Label = "",
-                    EventDate = new DateTime(1,1,1),
-                    MonyhlyEvent = false,
-                    YearlyEvent = false,
-                    UserId = users[0].Id,
+                    Title = "Rachunek za wodę",
+                    Description = "Termin do końca miesiąca",
+                    Label = "Rachunki",
+                    EventDate = new DateTime(2000,01,10),
+                    MonyhlyEvent = true,
+                    YearlyEvent = true,
+                    UserId = users[1].Id,
                     CreatedBy = "SYSTEM"
                 },
                 new Event()
                 {
                     Id = 6,
-                    Title = "",
-                    Description = "",
-                    Label = "",
-                    EventDate = new DateTime(1,1,1),
+                    Title = "Koncert",
+                    Description = "Koncert w Warszawie",
+                    Label = "Rozrywka",
+                    EventDate = new DateTime(2025,08,15),
                     MonyhlyEvent = false,
                     YearlyEvent = false,
-                    UserId = users[0].Id,
-                    CreatedBy = "SYSTEM"
-                },
-                new Event()
-                {
-                    Id = 7,
-                    Title = "",
-                    Description = "",
-                    Label = "",
-                    EventDate = new DateTime(1,1,1),
-                    MonyhlyEvent = false,
-                    YearlyEvent = false,
-                    UserId = users[0].Id,
-                    CreatedBy = "SYSTEM"
-                },
-                new Event()
-                {
-                    Id = 8,
-                    Title = "",
-                    Description = "",
-                    Label = "",
-                    EventDate = new DateTime(1,1,1),
-                    MonyhlyEvent = false,
-                    YearlyEvent = false,
-                    UserId = users[0].Id,
-                    CreatedBy = "SYSTEM"
-                },
-                new Event()
-                {
-                    Id = 9,
-                    Title = "",
-                    Description = "",
-                    Label = "",
-                    EventDate = new DateTime(1,1,1),
-                    MonyhlyEvent = false,
-                    YearlyEvent = false,
-                    UserId = users[0].Id,
-                    CreatedBy = "SYSTEM"
-                },
-                new Event()
-                {
-                    Id = 10,
-                    Title = "",
-                    Description = "",
-                    Label = "",
-                    EventDate = new DateTime(1,1,1),
-                    MonyhlyEvent = false,
-                    YearlyEvent = false,
-                    UserId = users[0].Id,
-                    CreatedBy = "SYSTEM"
-                },
-                new Event()
-                {
-                    Id = 11,
-                    Title = "",
-                    Description = "",
-                    Label = "",
-                    EventDate = new DateTime(1,1,1),
-                    MonyhlyEvent = false,
-                    YearlyEvent = false,
-                    UserId = users[0].Id,
-                    CreatedBy = "SYSTEM"
-                },
-                new Event()
-                {
-                    Id = 12,
-                    Title = "",
-                    Description = "",
-                    Label = "",
-                    EventDate = new DateTime(1,1,1),
-                    MonyhlyEvent = false,
-                    YearlyEvent = false,
-                    UserId = users[0].Id,
-                    CreatedBy = "SYSTEM"
-                },
-                new Event()
-                {
-                    Id = 13,
-                    Title = "",
-                    Description = "",
-                    Label = "",
-                    EventDate = new DateTime(1,1,1),
-                    MonyhlyEvent = false,
-                    YearlyEvent = false,
-                    UserId = users[0].Id,
-                    CreatedBy = "SYSTEM"
-                },
-                new Event()
-                {
-                    Id = 14,
-                    Title = "",
-                    Description = "",
-                    Label = "",
-                    EventDate = new DateTime(1,1,1),
-                    MonyhlyEvent = false,
-                    YearlyEvent = false,
-                    UserId = users[0].Id,
-                    CreatedBy = "SYSTEM"
-                },
-                new Event()
-                {
-                    Id = 15,
-                    Title = "",
-                    Description = "",
-                    Label = "",
-                    EventDate = new DateTime(1,1,1),
-                    MonyhlyEvent = false,
-                    YearlyEvent = false,
-                    UserId = users[0].Id,
-                    CreatedBy = "SYSTEM"
-                },
-                new Event()
-                {
-                    Id = 16,
-                    Title = "",
-                    Description = "",
-                    Label = "",
-                    EventDate = new DateTime(1,1,1),
-                    MonyhlyEvent = false,
-                    YearlyEvent = false,
-                    UserId = users[0].Id,
-                    CreatedBy = "SYSTEM"
-                },
-                new Event()
-                {
-                    Id = 17,
-                    Title = "",
-                    Description = "",
-                    Label = "",
-                    EventDate = new DateTime(1,1,1),
-                    MonyhlyEvent = false,
-                    YearlyEvent = false,
-                    UserId = users[0].Id,
-                    CreatedBy = "SYSTEM"
-                },
-                new Event()
-                {
-                    Id = 18,
-                    Title = "",
-                    Description = "",
-                    Label = "",
-                    EventDate = new DateTime(1,1,1),
-                    MonyhlyEvent = false,
-                    YearlyEvent = false,
-                    UserId = users[0].Id,
-                    CreatedBy = "SYSTEM"
-                },
-                new Event()
-                {
-                    Id = 19,
-                    Title = "",
-                    Description = "",
-                    Label = "",
-                    EventDate = new DateTime(1,1,1),
-                    MonyhlyEvent = false,
-                    YearlyEvent = false,
-                    UserId = users[0].Id,
-                    CreatedBy = "SYSTEM"
-                },
-                new Event()
-                {
-                    Id = 20,
-                    Title = "",
-                    Description = "",
-                    Label = "",
-                    EventDate = new DateTime(1,1,1),
-                    MonyhlyEvent = false,
-                    YearlyEvent = false,
-                    UserId = users[0].Id,
+                    UserId = users[1].Id,
                     CreatedBy = "SYSTEM"
                 }
             };

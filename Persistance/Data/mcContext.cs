@@ -2,9 +2,11 @@
 using Domain.Entity.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Persistance.DummyData;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -69,6 +71,26 @@ namespace Persistance.Data
                     .HasForeignKey(y => y.UserId)
                     .OnDelete(DeleteBehavior.NoAction);
             });
+
+            foreach (var item in DummyUsers.GetUsers())
+            {
+                modelBuilder.Entity<User>().HasData(item);
+            }
+
+            foreach (var item in DummyEvents.GetEvents())
+            {
+                modelBuilder.Entity<Event>().HasData(item);
+            }
+
+            foreach (var item in DummyComments.GetComments())
+            {
+                modelBuilder.Entity<Comment>().HasData(item);
+            }
+
+            foreach (var item in DummyAccesRequests.GetAccesRequests())
+            {
+                modelBuilder.Entity<AccesRequest>().HasData(item);
+            }
         }
     }
 }

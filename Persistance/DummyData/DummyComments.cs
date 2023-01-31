@@ -18,83 +18,35 @@ namespace Persistance.DummyData
                 new Comment()
                 {
                     Id = 1,
-                    Message = "",
+                    Message = "Na pewno wpadnę",
                     EventId = 1,
-                    UserId = users[0].Id,
+                    UserId = users[2].Id,
                     CreatedBy = "SYSTEM"
                 },
                 new Comment()
                 {
                     Id = 2,
-                    Message = "",
+                    Message = "Mam już prezent",
                     EventId = 1,
-                    UserId = users[0].Id,
+                    UserId = users[3].Id,
                     CreatedBy = "SYSTEM"
                 },
                 new Comment()
                 {
                     Id = 3,
-                    Message = "",
-                    EventId = 1,
-                    UserId = users[0].Id,
+                    Message = "Mogę kierować",
+                    EventId = 6,
+                    UserId = users[6].Id,
                     CreatedBy = "SYSTEM"
                 },
                 new Comment()
                 {
                     Id = 4,
-                    Message = "",
-                    EventId = 1,
-                    UserId = users[0].Id,
+                    Message = "O której jedziemy?",
+                    EventId = 6,
+                    UserId = users[7].Id,
                     CreatedBy = "SYSTEM"
-                },
-                new Comment()
-                {
-                    Id = 5,
-                    Message = "",
-                    EventId = 1,
-                    UserId = users[0].Id,
-                    CreatedBy = "SYSTEM"
-                },
-                new Comment()
-                {
-                    Id = 6,
-                    Message = "",
-                    EventId = 1,
-                    UserId = users[0].Id,
-                    CreatedBy = "SYSTEM"
-                },
-                new Comment()
-                {
-                    Id = 7,
-                    Message = "",
-                    EventId = 1,
-                    UserId = users[0].Id,
-                    CreatedBy = "SYSTEM"
-                },
-                new Comment()
-                {
-                    Id = 8,
-                    Message = "",
-                    EventId = 1,
-                    UserId = users[0].Id,
-                    CreatedBy = "SYSTEM"
-                },
-                new Comment()
-                {
-                    Id = 9,
-                    Message = "",
-                    EventId = 1,
-                    UserId = users[0].Id,
-                    CreatedBy = "SYSTEM"
-                },
-                new Comment()
-                {
-                    Id = 10,
-                    Message = "",
-                    EventId = 1,
-                    UserId = users[0].Id,
-                    CreatedBy = "SYSTEM"
-                },
+                }
             };
         }
     }

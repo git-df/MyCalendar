@@ -24,25 +24,6 @@ namespace Application.Services
             _userRepository = userRepository;
         }
 
-        public async Task<ServiceResponse<UserInfoModel>> GetUserInfo(Guid userId)
-        {
-            var user = await _userRepository.GetByGuid(userId);
-
-            if (user == null)
-            {
-                return new ServiceResponse<UserInfoModel>()
-                {
-                    Success = false,
-                    Message = "Nie znaleziono użytkownika o takim id"
-                };
-            }
-
-            return new ServiceResponse<UserInfoModel>()
-            {
-                Data = _mapper.Map<UserInfoModel>(user)
-            };
-        }
-
         public async Task<ServiceResponse<UserInfoModel>> PasswordChange(Guid userId, UserPasswordChangeModel userPassword)
         {
             if (userPassword.Password != userPassword.ConfirmPassword)
@@ -65,8 +46,17 @@ namespace Application.Services
                 };
             }
 
+            if (user.Password != HashPassword($"{userPassword.OldPassword}{user.Salt}"))
+            {
+                return new ServiceResponse<UserInfoModel>()
+                {
+                    Success = false,
+                    Message = "Błędne obecne hasło"
+                };
+            }
+
             user.Salt = SaltGenerator();
-            user.Password = HashPassword($"{user.Password}{user.Salt}");
+            user.Password = HashPassword($"{userPassword.Password}{user.Salt}");
 
             await _userRepository.Update(user);
 
@@ -78,6 +68,15 @@ namespace Application.Services
 
         public async Task<ServiceResponse<UserInfoModel>> SignIn(UserSignInModel user)
         {
+            if (user.Email == null)
+            {
+                return new ServiceResponse<UserInfoModel>()
+                {
+                    Success = false,
+                    Message = "Nie podano maila"
+                };
+            }
+
             var userFromBase = await _userRepository.GetByEmail(user.Email.ToLower());
 
             if (userFromBase == null)
@@ -138,30 +137,6 @@ namespace Application.Services
             return new ServiceResponse<UserInfoModel>()
             {
                 Data = _mapper.Map<UserInfoModel>(newUser)
-            };
-        }
-
-        public async Task<ServiceResponse<UserInfoModel>> UserDataChange(Guid userId, UserDataChangeModel dataChangeModel)
-        {
-            var user = await _userRepository.GetByGuid(userId);
-
-            if (user == null)
-            {
-                return new ServiceResponse<UserInfoModel>()
-                {
-                    Success = false,
-                    Message = "Nie znaleziono użytkownika o takim id"
-                };
-            }
-
-            user.FirstName = dataChangeModel.FirstName.ToLower();
-            user.LastName = dataChangeModel.LastName.ToLower();
-            
-            await _userRepository.Update(user);
-
-            return new ServiceResponse<UserInfoModel>()
-            {
-                Data = _mapper.Map<UserInfoModel>(user)
             };
         }
 

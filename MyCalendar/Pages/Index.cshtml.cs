@@ -23,18 +23,16 @@ namespace MyCalendar.Pages
             {
                 FirstName = "Dawid",
                 LastName = "Florian",
-                Email = "Cjhwidflorian99@gmail.com",
+                Email = "test",
                 Password = "Haslo123!",
                 ConfirmPassword = "Haslo123!"
             };
 
-            var a = await _authService.PasswordChange(Guid.Parse("DE110885-A27F-4E3E-31CC-08DB02BCDACC"),
-                new UserPasswordChangeModel()
-                {
-                    OldPassword = "Haslo123!",
-                    Password = "123",
-                    ConfirmPassword = "123"
-                });
+            //for (int i = 0; i < 10; i++)
+            //{
+            //    user.Email = "test" + i;
+            //    await _authService.SignUp(user);
+            //}
 
             return Page();
         }

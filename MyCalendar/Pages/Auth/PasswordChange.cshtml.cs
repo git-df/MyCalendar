@@ -1,21 +1,24 @@
 using Application.Models;
 using Application.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Security.Claims;
 
 namespace MyCalendar.Pages.Auth
 {
-    public class SignUpModel : PageModel
+    [Authorize(Policy = "User")]
+    public class PasswordChangeModel : PageModel
     {
         private readonly IAuthService _authService;
 
-        public SignUpModel(IAuthService authService)
+        public PasswordChangeModel(IAuthService authService)
         {
             _authService = authService;
         }
 
         [BindProperty]
-        public UserSignUpModel UserSignUpModel { get; set; }
+        public UserPasswordChangeModel UserPasswordChangeModel { get; set; }
 
         public void OnGet()
         {
@@ -23,7 +26,8 @@ namespace MyCalendar.Pages.Auth
 
         public async Task<IActionResult> OnPostAsync()
         {
-            var response = await _authService.SignUp(UserSignUpModel);
+            var response = await _authService.PasswordChange(
+                Guid.Parse(User.FindFirstValue("Id")), UserPasswordChangeModel);
 
             if (!response.Success)
             {

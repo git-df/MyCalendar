@@ -18,16 +18,16 @@ namespace Persistance.DummyData
                 new AccesRequest()
                 {
                     Id = 1,
-                    IsAccepted = false,
-                    FromUserId = users[0].Id,
+                    IsAccepted = true,
+                    FromUserId = users[2].Id,
                     ToUserId = users[0].Id,
                     CreatedBy = "SYSTEM"
                 },
                 new AccesRequest()
                 {
                     Id = 2,
-                    IsAccepted = false,
-                    FromUserId = users[0].Id,
+                    IsAccepted = true,
+                    FromUserId = users[3].Id,
                     ToUserId = users[0].Id,
                     CreatedBy = "SYSTEM"
                 },
@@ -35,8 +35,48 @@ namespace Persistance.DummyData
                 {
                     Id = 3,
                     IsAccepted = false,
-                    FromUserId = users[0].Id,
+                    FromUserId = users[4].Id,
                     ToUserId = users[0].Id,
+                    CreatedBy = "SYSTEM"
+                },
+                new AccesRequest()
+                {
+                    Id = 4,
+                    IsAccepted = false,
+                    FromUserId = users[5].Id,
+                    ToUserId = users[0].Id,
+                    CreatedBy = "SYSTEM"
+                },
+                new AccesRequest()
+                {
+                    Id = 5,
+                    IsAccepted = true,
+                    FromUserId = users[6].Id,
+                    ToUserId = users[1].Id,
+                    CreatedBy = "SYSTEM"
+                },
+                new AccesRequest()
+                {
+                    Id = 6,
+                    IsAccepted = true,
+                    FromUserId = users[7].Id,
+                    ToUserId = users[1].Id,
+                    CreatedBy = "SYSTEM"
+                },
+                new AccesRequest()
+                {
+                    Id = 7,
+                    IsAccepted = false,
+                    FromUserId = users[8].Id,
+                    ToUserId = users[1].Id,
+                    CreatedBy = "SYSTEM"
+                },
+                new AccesRequest()
+                {
+                    Id = 8,
+                    IsAccepted = false,
+                    FromUserId = users[9].Id,
+                    ToUserId = users[1].Id,
                     CreatedBy = "SYSTEM"
                 }
             };
