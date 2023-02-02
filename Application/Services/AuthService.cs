@@ -41,15 +41,6 @@ namespace Application.Services
                 };
             }
 
-            if (userPassword.Password != userPassword.ConfirmPassword)
-            {
-                return new ServiceResponse<UserInfoModel>()
-                {
-                    Success = false,
-                    Message = "Hasła nie są takie same"
-                };
-            }
-
             var user = await _userRepository.GetByGuid(userId);
 
             if (user == null)
@@ -133,15 +124,6 @@ namespace Application.Services
                 return new ServiceResponse<UserInfoModel>()
                 {
                     Success = false
-                };
-            }
-
-            if (user.Password != user.ConfirmPassword)
-            {
-                return new ServiceResponse<UserInfoModel>()
-                {
-                    Success = false,
-                    Message = "Hasła nie są takie same"
                 };
             }
 

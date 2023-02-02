@@ -13,13 +13,13 @@ namespace Application.Validators
         public UserSignInValidator()
         {
             RuleFor(u => u.Email)
-                .NotNull()
+                .NotEmpty()
                 .WithMessage("Musisz podać email")
                 .EmailAddress()
                 .WithMessage("Email jest nie poprawny");
 
             RuleFor(u => u.Password)
-                .NotNull()
+                .NotEmpty()
                 .WithMessage("Musisz podać hasło");
         }
     }
@@ -29,21 +29,21 @@ namespace Application.Validators
         public UserSignUpValidator()
         {
             RuleFor(u => u.Email)
-                .NotNull()
+                .NotEmpty()
                 .WithMessage("Musisz podać email")
                 .EmailAddress()
                 .WithMessage("Email jest nie poprawny");
 
             RuleFor(u => u.FirstName)
-                .NotNull()
+                .NotEmpty()
                 .WithMessage("Musisz podać imie");
 
             RuleFor(u => u.LastName)
-                .NotNull()
+                .NotEmpty()
                 .WithMessage("Musisz podać nazwisko");
 
             RuleFor(u => u.Password)
-                .NotNull()
+                .NotEmpty()
                 .WithMessage("Musisz podać hasło")
                 .MinimumLength(8)
                 .WithMessage("Hasło musi mieć minimum 8 znaków");
@@ -59,12 +59,14 @@ namespace Application.Validators
         public UserPasswordChangeValidator()
         {
             RuleFor(u => u.OldPassword)
-                .NotNull()
+                .NotEmpty()
                 .WithMessage("Musisz podać stare hasło");
 
             RuleFor(u => u.Password)
-                .NotNull()
-                .WithMessage("Musisz podać nowe hasło");
+                .NotEmpty()
+                .WithMessage("Musisz podać nowe hasło")
+                .MinimumLength(8)
+                .WithMessage("Hasło musi mieć minimum 8 znaków");
 
             RuleFor(u => u.ConfirmPassword)
                 .Equal(u => u.Password)
@@ -77,11 +79,11 @@ namespace Application.Validators
         public UserDataChangeValidator()
         {
             RuleFor(u => u.FirstName)
-                .NotNull()
+                .NotEmpty()
                 .WithMessage("Musisz podać imie");
 
             RuleFor(u => u.LastName)
-                .NotNull()
+                .NotEmpty()
                 .WithMessage("Musisz podać nazwisko");
         }
     }
