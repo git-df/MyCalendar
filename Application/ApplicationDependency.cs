@@ -1,5 +1,9 @@
-﻿using Application.Services;
+﻿using Application.Models;
+using Application.Services;
 using Application.Services.Interfaces;
+using Application.Validators;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -19,6 +23,13 @@ namespace Application
 
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IUserService, UserService>();
+
+            services.AddFluentValidationAutoValidation();
+
+            services.AddScoped<IValidator<UserSignInModel>, UserSignInValidator>();
+            services.AddScoped<IValidator<UserSignUpModel>, UserSignUpValidator>();
+            services.AddScoped<IValidator<UserDataChangeModel>, UserDataChangeValidator>();
+            services.AddScoped<IValidator<UserPasswordChangeModel>, UserPasswordChangeValidator>();
 
             return services;
         }

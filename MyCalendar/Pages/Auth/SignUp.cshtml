@@ -14,23 +14,28 @@
         <form method="post">
             <div class="mb-3">
                 <label for="Email" class="form-label">Email:</label>
-                <input type="email" class="form-control" id="Email" asp-for="UserSignUpModel.Email"/>
+                <input type="text" class="form-control" id="Email" asp-for="UserSignUpModel.Email"/>
+                <span class="text-danger" asp-validation-for="UserSignUpModel.Email"></span>
             </div>
             <div class="mb-3">
                 <label for="FirstName" class="form-label">Imie:</label>
                 <input type="text" class="form-control" id="FirstName" asp-for="UserSignUpModel.FirstName" />
+                <span class="text-danger" asp-validation-for="UserSignUpModel.FirstName"></span>
             </div>
             <div class="mb-3">
                 <label for="LastName" class="form-label">Nazwisko:</label>
                 <input type="text" class="form-control" id="LastName" asp-for="UserSignUpModel.LastName" />
+                <span class="text-danger" asp-validation-for="UserSignUpModel.LastName"></span>
             </div>
             <div class="mb-3">
                 <label for="Password" class="form-label">Hasło:</label>
                 <input type="password" class="form-control" id="Password" asp-for="UserSignUpModel.Password" />
+                <span class="text-danger" asp-validation-for="UserSignUpModel.Password"></span>
             </div>
             <div class="mb-3">
                 <label for="ConfirmPassword" class="form-label">Potwierdź hasło:</label>
                 <input type="password" class="form-control" id="ConfirmPassword" asp-for="UserSignUpModel.ConfirmPassword" />
+                <span class="text-danger" asp-validation-for="UserSignUpModel.ConfirmPassword"></span>
             </div>
             <button class="btn btn-dark" type="submit">Rejestruj</button>
         </form>

@@ -3,6 +3,7 @@ using Application.Responses;
 using Application.Services.Interfaces;
 using AutoMapper;
 using Domain.Entity;
+using FluentValidation;
 using Persistance.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -17,15 +18,29 @@ namespace Application.Services
     {
         private readonly IMapper _mapper;
         private readonly IUserRepository _userRepository;
+        private readonly IValidator<UserSignInModel> _signInValidator;
+        private readonly IValidator<UserSignUpModel> _signUpValidator;
+        private readonly IValidator<UserPasswordChangeModel> _passwordChangeValidator;
 
-        public AuthService(IMapper mapper, IUserRepository userRepository)
+        public AuthService(IMapper mapper, IUserRepository userRepository, IValidator<UserSignInModel> signInvalidator, IValidator<UserSignUpModel> signUpValidator, IValidator<UserPasswordChangeModel> passwordChange)
         {
             _mapper = mapper;
             _userRepository = userRepository;
+            _signInValidator = signInvalidator;
+            _signUpValidator = signUpValidator;
+            _passwordChangeValidator = passwordChange;
         }
 
         public async Task<ServiceResponse<UserInfoModel>> PasswordChange(Guid userId, UserPasswordChangeModel userPassword)
         {
+            if (!_passwordChangeValidator.Validate(userPassword).IsValid)
+            {
+                return new ServiceResponse<UserInfoModel>()
+                {
+                    Success = false
+                };
+            }
+
             if (userPassword.Password != userPassword.ConfirmPassword)
             {
                 return new ServiceResponse<UserInfoModel>()
@@ -68,6 +83,14 @@ namespace Application.Services
 
         public async Task<ServiceResponse<UserInfoModel>> SignIn(UserSignInModel user)
         {
+            if (!_signInValidator.Validate(user).IsValid)
+            {
+                return new ServiceResponse<UserInfoModel>()
+                {
+                    Success = false
+                };
+            }
+            
             if (user.Email == null)
             {
                 return new ServiceResponse<UserInfoModel>()
@@ -105,6 +128,14 @@ namespace Application.Services
 
         public async Task<ServiceResponse<UserInfoModel>> SignUp(UserSignUpModel user)
         {
+            if (!_signUpValidator.Validate(user).IsValid)
+            {
+                return new ServiceResponse<UserInfoModel>()
+                {
+                    Success = false
+                };
+            }
+
             if (user.Password != user.ConfirmPassword)
             {
                 return new ServiceResponse<UserInfoModel>()

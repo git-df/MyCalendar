@@ -2,6 +2,7 @@
 using Application.Responses;
 using Application.Services.Interfaces;
 using AutoMapper;
+using FluentValidation;
 using Persistance.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -15,11 +16,13 @@ namespace Application.Services
     {
         private readonly IMapper _mapper;
         private readonly IUserRepository _userRepository;
+        private readonly IValidator<UserDataChangeModel> _dataChangeValidator;
 
-        public UserService(IMapper mapper, IUserRepository userRepository)
+        public UserService(IMapper mapper, IUserRepository userRepository, IValidator<UserDataChangeModel> dataChangeValidator)
         {
             _mapper = mapper;
             _userRepository = userRepository;
+            _dataChangeValidator = dataChangeValidator;
         }
 
         public async Task<ServiceResponse<UserInfoModel>> GetUserInfo(Guid userId)
@@ -43,6 +46,14 @@ namespace Application.Services
 
         public async Task<ServiceResponse<UserInfoModel>> UserDataChange(Guid userId, UserDataChangeModel dataChangeModel)
         {
+            if (!_dataChangeValidator.Validate(dataChangeModel).IsValid)
+            {
+                return new ServiceResponse<UserInfoModel>()
+                {
+                    Success = false
+                };
+            }
+
             var user = await _userRepository.GetByGuid(userId);
 
             if (user == null)
