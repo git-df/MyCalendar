@@ -35,7 +35,7 @@ namespace MyCalendar.Pages.Auth
                 return Page();
             }
 
-            return Page();
+            return RedirectToPage("/Index");
         }
     }
 }

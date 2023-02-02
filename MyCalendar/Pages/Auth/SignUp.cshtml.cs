@@ -17,8 +17,12 @@ namespace MyCalendar.Pages.Auth
         [BindProperty]
         public UserSignUpModel UserSignUpModel { get; set; }
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
+            if (User.Identity.IsAuthenticated)
+                return RedirectToPage("/Index");
+
+            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -31,7 +35,7 @@ namespace MyCalendar.Pages.Auth
                 return Page();
             }
 
-            return Page();
+            return RedirectToPage("/Auth/SignIn");
         }
     }
 }

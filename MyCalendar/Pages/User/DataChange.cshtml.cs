@@ -52,7 +52,7 @@ namespace MyCalendar.Pages.User
                 return Page();
             }
 
-            return Page();
+            return RedirectToPage("/Index");
         }
     }
 }

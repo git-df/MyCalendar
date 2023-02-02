@@ -12,7 +12,7 @@ namespace MyCalendar.Pages.Auth
             await HttpContext.SignOutAsync(
                 CookieAuthenticationDefaults.AuthenticationScheme);
 
-            return Page();
+            return RedirectToPage("/Auth/SignIn");
         }
     }
 }

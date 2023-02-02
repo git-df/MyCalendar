@@ -22,8 +22,15 @@ namespace MyCalendar.Pages.Auth
         [BindProperty]
         public UserSignInModel UserSignInModel { get; set; }
 
-        public void OnGet()
+        [BindProperty(Name = "ReturnUrl", SupportsGet = true)]
+        public string ReturnUrl { get; set; }
+
+        public IActionResult OnGet()
         {
+            if (User.Identity.IsAuthenticated)
+                return RedirectToPage("/Index");
+
+            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -34,6 +41,11 @@ namespace MyCalendar.Pages.Auth
             {
                 ViewData["Message"] = response.Message;
                 return Page();
+            }
+
+            if (ReturnUrl == null)
+            {
+                return RedirectToPage("/Index");
             }
 
             await SignIn(response.Data);
