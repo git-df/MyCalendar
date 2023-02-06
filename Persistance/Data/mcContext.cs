@@ -46,7 +46,7 @@ namespace Persistance.Data
                 e.HasMany(x => x.Comments)
                     .WithOne(y => y.Event)
                     .HasForeignKey(y => y.EventId)
-                    .OnDelete(DeleteBehavior.NoAction);
+                    .OnDelete(DeleteBehavior.ClientCascade);
             });
 
             modelBuilder.Entity<User>(e =>
@@ -54,22 +54,22 @@ namespace Persistance.Data
                 e.HasMany(x => x.Events)
                     .WithOne(y => y.User)
                     .HasForeignKey(y => y.UserId)
-                    .OnDelete(DeleteBehavior.NoAction);
+                    .OnDelete(DeleteBehavior.ClientCascade);
 
                 e.HasMany(x => x.accesRequestsToUser)
                     .WithOne(y => y.ToUser)
                     .HasForeignKey(y => y.ToUserId)
-                    .OnDelete(DeleteBehavior.NoAction);
+                    .OnDelete(DeleteBehavior.ClientCascade);
 
                 e.HasMany(x => x.accesRequestsFromUser)
                     .WithOne(y => y.FromUser)
                     .HasForeignKey(y => y.FromUserId)
-                    .OnDelete(DeleteBehavior.NoAction);
+                    .OnDelete(DeleteBehavior.ClientCascade);
 
                 e.HasMany(x => x.Comments)
                     .WithOne(y => y.User)
                     .HasForeignKey(y => y.UserId)
-                    .OnDelete(DeleteBehavior.NoAction);
+                    .OnDelete(DeleteBehavior.ClientCascade);
             });
 
             foreach (var item in DummyUsers.GetUsers())
