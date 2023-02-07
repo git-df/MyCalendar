@@ -46,9 +46,7 @@ namespace Persistance.Repositories
                     { nameof(Event.Title), e => e.Title },
                     { nameof(Event.Label), e => e.Label },
                     { nameof(Event.EventDate), e => e.EventDate },
-                    { nameof(Event.EndEventDate), e => e.EventDate },
-                    { nameof(Event.MonyhlyEvent), e => e.MonyhlyEvent },
-                    { nameof(Event.YearlyEvent), e => e.YearlyEvent },
+                    { nameof(Event.EndEventDate), e => e.EventDate }
                 };
 
                 events = sortByDesc

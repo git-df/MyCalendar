@@ -13,10 +13,8 @@ namespace Domain.Entity
         public string Title { get; set; }
         public string Description { get; set; }
         public string Label { get; set; }
-        public DateTime? EventDate { get; set; }
+        public DateTime EventDate { get; set; }
         public DateTime? EndEventDate { get; set; }
-        public bool MonyhlyEvent { get; set; }
-        public bool YearlyEvent { get; set; }
 
         public Guid UserId { get; set; }
         public User User { get; set; }

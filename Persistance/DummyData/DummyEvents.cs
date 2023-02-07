@@ -24,8 +24,6 @@ namespace Persistance.DummyData
                     Label = "Urodziny",
                     EventDate = new DateTime(2000,12,12),
                     EndEventDate = new DateTime(2000,12,12).AddHours(1),
-                    MonyhlyEvent = false,
-                    YearlyEvent = true,
                     UserId = users[0].Id,
                     CreatedBy = "SYSTEM"
                 },
@@ -37,8 +35,6 @@ namespace Persistance.DummyData
                     Label = "Wycieczka",
                     EventDate = new DateTime(2024,06,01),
                     EndEventDate = new DateTime(2024,06,01).AddHours(1),
-                    MonyhlyEvent = false,
-                    YearlyEvent = false,
                     UserId = users[0].Id,
                     CreatedBy = "SYSTEM"
                 },
@@ -50,8 +46,6 @@ namespace Persistance.DummyData
                     Label = "Urodziny",
                     EventDate = new DateTime(2000,01,10),
                     EndEventDate = new DateTime(2000,01,10).AddHours(1),
-                    MonyhlyEvent = false,
-                    YearlyEvent = true,
                     UserId = users[0].Id,
                     CreatedBy = "SYSTEM"
                 },
@@ -63,8 +57,6 @@ namespace Persistance.DummyData
                     Label = "Rachunki",
                     EventDate = new DateTime(2000,01,01),
                     EndEventDate = new DateTime(2000,01,01).AddHours(1),
-                    MonyhlyEvent = true,
-                    YearlyEvent = true,
                     UserId = users[1].Id,
                     CreatedBy = "SYSTEM"
                 },
@@ -76,8 +68,6 @@ namespace Persistance.DummyData
                     Label = "Rachunki",
                     EventDate = new DateTime(2000,01,10),
                     EndEventDate = new DateTime(2000,01,10).AddHours(1),
-                    MonyhlyEvent = true,
-                    YearlyEvent = true,
                     UserId = users[1].Id,
                     CreatedBy = "SYSTEM"
                 },
@@ -89,8 +79,6 @@ namespace Persistance.DummyData
                     Label = "Rozrywka",
                     EventDate = new DateTime(2025,08,15),
                     EndEventDate = new DateTime(2025,08,15).AddHours(1),
-                    MonyhlyEvent = false,
-                    YearlyEvent = false,
                     UserId = users[1].Id,
                     CreatedBy = "SYSTEM"
                 }
