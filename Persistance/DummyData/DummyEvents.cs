@@ -1,4 +1,5 @@
 ﻿using Domain.Entity;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,7 @@ namespace Persistance.DummyData
                     Description = "Wielkie święto",
                     Label = "Urodziny",
                     EventDate = new DateTime(2000,12,12),
+                    EndEventDate = new DateTime(2000,12,12).AddHours(1),
                     MonyhlyEvent = false,
                     YearlyEvent = true,
                     UserId = users[0].Id,
@@ -34,6 +36,7 @@ namespace Persistance.DummyData
                     Description = "Wyjazd do Włoch",
                     Label = "Wycieczka",
                     EventDate = new DateTime(2024,06,01),
+                    EndEventDate = new DateTime(2024,06,01).AddHours(1),
                     MonyhlyEvent = false,
                     YearlyEvent = false,
                     UserId = users[0].Id,
@@ -46,6 +49,7 @@ namespace Persistance.DummyData
                     Description = "Nie zapomnij wziąść wolne w pracy",
                     Label = "Urodziny",
                     EventDate = new DateTime(2000,01,10),
+                    EndEventDate = new DateTime(2000,01,10).AddHours(1),
                     MonyhlyEvent = false,
                     YearlyEvent = true,
                     UserId = users[0].Id,
@@ -58,6 +62,7 @@ namespace Persistance.DummyData
                     Description = "Nie zapomnij zapłacić",
                     Label = "Rachunki",
                     EventDate = new DateTime(2000,01,01),
+                    EndEventDate = new DateTime(2000,01,01).AddHours(1),
                     MonyhlyEvent = true,
                     YearlyEvent = true,
                     UserId = users[1].Id,
@@ -70,6 +75,7 @@ namespace Persistance.DummyData
                     Description = "Termin do końca miesiąca",
                     Label = "Rachunki",
                     EventDate = new DateTime(2000,01,10),
+                    EndEventDate = new DateTime(2000,01,10).AddHours(1),
                     MonyhlyEvent = true,
                     YearlyEvent = true,
                     UserId = users[1].Id,
@@ -82,6 +88,7 @@ namespace Persistance.DummyData
                     Description = "Koncert w Warszawie",
                     Label = "Rozrywka",
                     EventDate = new DateTime(2025,08,15),
+                    EndEventDate = new DateTime(2025,08,15).AddHours(1),
                     MonyhlyEvent = false,
                     YearlyEvent = false,
                     UserId = users[1].Id,
