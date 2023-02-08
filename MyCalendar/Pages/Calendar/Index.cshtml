@@ -3,4 +3,78 @@
 @{
 }
 
+<div class="bg-secondary bg-opacity-10 py-2">
+    <div class="container">
+        <h1>Kalendarz</h1>
+    </div>
+</div>
+
+<div>
+    <div class="container">
+        <form method="post">
+            <div class="row">
+                <div class="col-3 mb-3">
+                    <label for="fromDate" class="form-label">Od:</label>
+                    <input type="date" class="form-control" id="fromDate" asp-for="Filter.FromDate" />
+                </div>
+                <div class="col-3 mb-3">
+                    <label for="toDate" class="form-label">Do:</label>
+                    <input type="date" class="form-control" id="toDate" asp-for="Filter.ToDate" />
+                </div>
+                <div class="col-3 mb-3">
+                    <label for="filter" class="form-label">Filtruj:</label>
+                    <input type="text" class="form-control" id="filter" asp-for="Filter.Filter" />
+                </div>
+                <div class="col-3 mb-3">
+                    <button class="btn btn-dark" type="submit">Znajdź</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@if(ViewData["Message"] == null)
+{
+    <div class="bg-secondary bg-opacity-10 py-2">
+        <div class="container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Od</th>
+                        <th scope="col">Do</th>
+                        <th scope="col">Tytuł</th>
+                        <th scope="col">Etykieta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var e in Model.CalendarModel.Events)
+                    {
+                        <tr>
+                            <td>
+                                @e.EventDate
+                            </td>
+                            <td>
+                                @e.EndEventDate
+                            </td>
+                            <td>
+                                @e.Title
+                            </td>
+                            <td>
+                                @e.Label
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+} 
+else
+{
+    <div class="py-2">
+        <div class="container">
+            <p>@ViewData["Message"]</p>
+        </div>
+    </div>
+}
 

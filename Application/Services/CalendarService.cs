@@ -1,4 +1,5 @@
 ﻿using Application.Models;
+using Application.Models.GridFilters;
 using Application.Responses;
 using Application.Services.Interfaces;
 using AutoMapper;
@@ -22,26 +23,36 @@ namespace Application.Services
             _eventRepository = eventRepository;
         }
 
-        public async Task<ServiceResponse<EventsListModel>> GetEventsList(EventInputModel inputModel)
+        public async Task<ServiceResponse<EventCalendarModel>> GetEventsList(CalendarFilter filter, Guid userid, int pageNumber = 1, int pageSize = 10, string orderBy = null, bool orderDesc = false)
         {
-            var results = await _eventRepository.GetEventsWithComments(
-                inputModel.userid,
-                inputModel.fromDate,
-                inputModel.toDate,
-                inputModel.filter,
-                inputModel.pageNumber,
-                inputModel.pageSize,
-                inputModel.sortBy,
-                inputModel.sortByDesc);
+            var events = await _eventRepository.GetEventsWithComments(
+                userid,
+                filter.FromDate,
+                filter.ToDate,
+                filter.Filter,
+                pageNumber,
+                pageSize,
+                orderBy,
+                orderDesc);
 
-            return new ServiceResponse<EventsListModel> { 
-                Data = new EventsListModel()
+            if (events.totalCount == 0)
+            {
+                return new ServiceResponse<EventCalendarModel>()
                 {
-                    Events = _mapper.Map<List<EventOnListModel>>(results.events),
-                    TotalCount = results.totalCount,
-                    EventsFrom = (inputModel.pageSize * inputModel.pageNumber - 1) + 1,
-                    EventsTo = inputModel.pageSize * inputModel.pageNumber,
-                    TotalPages = (int)Math.Ceiling(results.totalCount/(double)inputModel.pageSize)
+                    Success = false,
+                    Message = "Brak wyników"
+                };
+            }
+
+            return new ServiceResponse<EventCalendarModel>()
+            {
+                Data = new EventCalendarModel()
+                {
+                    Events = _mapper.Map<List<EventOnListModel>>(events.events),
+                    TotalCount = events.totalCount,
+                    EventsFrom = ((pageNumber - 1) * pageSize) + 1,
+                    EventsTo = (pageNumber * pageSize),
+                    TotalPages = (int)Math.Ceiling(events.totalCount / (double)pageSize)
                 }
             };
         }

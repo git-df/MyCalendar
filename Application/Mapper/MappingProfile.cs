@@ -18,7 +18,7 @@ namespace Application.Mapper
             CreateMap<User, UserInfoModel>().ReverseMap();
             CreateMap<User, UserDataChangeModel>().ReverseMap();
 
-            CreateMap<Event, EventOnListModel>().ReverseMap();
+            CreateMap<EventOnListModel, Event>().ReverseMap();
         }
     }
 }

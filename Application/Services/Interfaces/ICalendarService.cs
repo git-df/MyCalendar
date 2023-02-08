@@ -1,4 +1,5 @@
 ﻿using Application.Models;
+using Application.Models.GridFilters;
 using Application.Responses;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,6 @@ namespace Application.Services.Interfaces
 {
     public interface ICalendarService
     {
-        Task<ServiceResponse<EventsListModel>> GetEventsList(EventInputModel inputModel);
+        Task<ServiceResponse<EventCalendarModel>> GetEventsList(CalendarFilter filter, Guid userid, int pageNumber, int pageSize, string orderBy, bool orderDesc);
     }
 }

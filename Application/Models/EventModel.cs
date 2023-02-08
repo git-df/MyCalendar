@@ -16,24 +16,12 @@ namespace Application.Models
         public DateTime? EndEventDate { get; set; }
     }
 
-    public class EventsListModel
+    public class EventCalendarModel
     {
         public List<EventOnListModel> Events { get; set; }
         public int TotalPages { get; set; }
         public int EventsFrom { get; set; }
         public int EventsTo { get; set; }
         public int TotalCount { get; set; }
-    }
-
-    public class EventInputModel
-    {
-        public Guid userid { get; set; }
-        public DateTime fromDate { get; set; }
-        public DateTime toDate { get; set; }
-        public string filter { get; set; }
-        public int pageNumber { get; set; }
-        public int pageSize { get; set; }
-        public string sortBy { get; set; }
-        public bool sortByDesc { get; set; }
     }
 }
