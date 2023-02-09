@@ -9,15 +9,6 @@ namespace Persistance.Repositories.Interfaces
 {
     public interface IEventRepository
     {
-        Task<(List<Event> events, int totalCount)> GetEventsWithComments(
-            Guid userid, 
-            DateTime fromDate, 
-            DateTime toDate, 
-            string filter, 
-            int pageNumber, 
-            int pageSize, 
-            string sortBy, 
-            bool sortByDesc
-            );
+        Task<(List<Event>, int)> GetFiltredEventsByUserId(Guid userid, DateTime fromDate, DateTime toDate, string filter, int count, int page, string orderBy);
     }
 }

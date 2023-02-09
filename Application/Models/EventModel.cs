@@ -16,6 +16,24 @@ namespace Application.Models
         public DateTime? EndEventDate { get; set; }
     }
 
+    public class EventListModel
+    {
+        public List<EventOnListModel> Events { get; set; }
+        public int EventsCount { get; set; } = 0;
+        public int PagesCount { get; set; } = 1;
+        public int FirstEventNumber { get; set; }
+        public int LastEventNumber { get; set; }
+        public string OrderTitleRoute { get; set; } = string.Empty;
+        public string OrderLabeleRoute { get; set; } = string.Empty;
+        public string OrderDateRoute { get; set; } = string.Empty;
+        public string OrderEndDateRoute { get; set; } = string.Empty;
+        public int CurrentPage { get; set; } = 1;
+        public int CurrentSize { get; set; } = 1;
+        public string CurrentOrder { get; set; } = string.Empty;
+    }
+
+
+    //to usunięcia
     public class EventCalendarModel
     {
         public List<EventOnListModel> Events { get; set; }

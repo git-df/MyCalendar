@@ -11,6 +11,6 @@ namespace Application.Services.Interfaces
 {
     public interface ICalendarService
     {
-        Task<ServiceResponse<EventCalendarModel>> GetEventsList(CalendarFilter filter, Guid userid, int pageNumber, int pageSize, string orderBy, bool orderDesc);
+        Task<ServiceResponse<EventListModel>> GetEventsListByUser(Guid userId, CalendarFilter filter, int pageNumber, int pageSize, string orderBy);
     }
 }

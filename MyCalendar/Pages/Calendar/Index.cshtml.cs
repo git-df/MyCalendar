@@ -4,7 +4,10 @@ using Application.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.IdentityModel.Tokens;
+using System.Drawing.Printing;
 using System.Security.Claims;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace MyCalendar.Pages.Calendar
 {
@@ -18,43 +21,42 @@ namespace MyCalendar.Pages.Calendar
             _calendarService = calendarService;
         }
 
+        public EventListModel EventList { get; set; }
+
         [BindProperty]
         public CalendarFilter Filter { get; set; }
 
-        [BindProperty]
-        public EventCalendarModel CalendarModel { get; set; }
-
-        public async Task<IActionResult> OnGetAsync(int page = 1, int size = 10, string orderBy = null, bool orderDesc = false)
+        public async Task<IActionResult> OnGetAsync(int pageNumber = 1, int size = 10, string orderBy = "date")
         {
-
+            EventList = EventList != null ? EventList : new EventListModel();
             Filter = Filter != null ? Filter : new CalendarFilter();
 
             var response = await _calendarService
-                .GetEventsList(Filter, Guid.Parse(User.FindFirstValue("Id")), page, size, orderBy, orderDesc);
+                .GetEventsListByUser(Guid.Parse(User.FindFirstValue("Id")), Filter, pageNumber, size, orderBy);
 
-            if (!response.Success)
+            if (response.Success)
+            {
+                EventList = response.Data;
+            }
+            else
             {
                 ViewData["Message"] = response.Message;
-                return Page();
             }
 
-            CalendarModel = response.Data;
+            EventList.OrderTitleRoute = orderBy == "title" ? "title_desc" : "title";
+            EventList.OrderLabeleRoute = orderBy == "label" ? "label_desc" : "label";
+            EventList.OrderDateRoute = orderBy == "date" ? "date_desc" : "date";
+            EventList.OrderEndDateRoute = orderBy == "endDate" ? "endDate_desc" : "endDate";
+            EventList.CurrentPage = pageNumber;
+            EventList.CurrentOrder = orderBy;
+            EventList.CurrentSize = size;
+
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(int page = 1, int size = 10, string orderBy = null, bool orderDesc = false)
+        public async Task OnPostAsync(int pageNumber = 1, int size = 10, string orderBy = "date")
         {
-            var response = await _calendarService
-                .GetEventsList(Filter, Guid.Parse(User.FindFirstValue("Id")), page, size, orderBy, orderDesc);
-
-            if (!response.Success)
-            {
-                ViewData["Message"] = response.Message;
-                return Page();
-            }
-
-            CalendarModel = response.Data;
-            return Page();
+            await OnGetAsync(pageNumber, size, orderBy);
         }
     }
 }

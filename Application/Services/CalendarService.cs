@@ -23,6 +23,8 @@ namespace Application.Services
             _eventRepository = eventRepository;
         }
 
+
+        //do usunięcia
         public async Task<ServiceResponse<EventCalendarModel>> GetEventsList(CalendarFilter filter, Guid userid, int pageNumber = 1, int pageSize = 10, string orderBy = null, bool orderDesc = false)
         {
             var events = await _eventRepository.GetEventsWithComments(
@@ -53,6 +55,33 @@ namespace Application.Services
                     EventsFrom = ((pageNumber - 1) * pageSize) + 1,
                     EventsTo = (pageNumber * pageSize),
                     TotalPages = (int)Math.Ceiling(events.totalCount / (double)pageSize)
+                }
+            };
+        }
+
+        public async Task<ServiceResponse<EventListModel>> GetEventsListByUser(Guid userId, CalendarFilter filter, int pageNumber, int pageSize, string orderBy)
+        {
+            (var events, int eventsCount) = await _eventRepository
+                .GetFiltredEventsByUserId(userId, filter.FromDate, filter.ToDate, filter.Filter, pageSize, pageNumber, orderBy);
+
+            if (!(eventsCount > 0) || events == null)
+            {
+                return new ServiceResponse<EventListModel>()
+                {
+                    Success = false,
+                    Message = "Brak wyników"
+                };
+            }
+
+            return new ServiceResponse<EventListModel>()
+            {
+                Data = new EventListModel()
+                {
+                    Events = _mapper.Map<List<EventOnListModel>>(events),
+                    EventsCount = eventsCount,
+                    PagesCount = (int)Math.Ceiling(eventsCount / (double)pageSize),
+                    FirstEventNumber = ((pageNumber - 1) * pageSize) + 1,
+                    LastEventNumber = Math.Min((pageNumber * pageSize), eventsCount)
                 }
             };
         }
