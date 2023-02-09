@@ -22,45 +22,6 @@ namespace Persistance.Repositories
             _context = context;
         }
 
-        //do usunięcia
-        public async Task<(List<Event> events, int totalCount)> GetEventsWithComments(
-            Guid userid, 
-            DateTime fromDate, 
-            DateTime toDate, 
-            string filter, 
-            int pageNumber, 
-            int pageSize, 
-            string sortBy, 
-            bool sortByDesc)
-        {
-            var events = _context.Events
-                .Where(e => e.UserId == userid && e.EventDate >= fromDate && e.EventDate < toDate)
-                .Where(e => filter == null || 
-                    e.Title.ToLower().Contains(filter.ToLower()) || 
-                    e.Label.ToLower().Contains(filter.ToLower()));
-
-            var totalCount = await events.CountAsync();
-
-            if (!sortBy.IsNullOrEmpty())
-            {
-                var columnSelector = new Dictionary<string, Expression<Func<Event, object>>>
-                {
-                    { nameof(Event.Title), e => e.Title },
-                    { nameof(Event.Label), e => e.Label },
-                    { nameof(Event.EventDate), e => e.EventDate },
-                    { nameof(Event.EndEventDate), e => e.EventDate }
-                };
-
-                events = sortByDesc
-                    ? events.OrderByDescending(columnSelector[sortBy])
-                    : events.OrderBy(columnSelector[sortBy]);
-            }
-
-            var eventsOnPage = await events.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
-
-            return ( eventsOnPage, totalCount );
-        }
-
         public async Task<(List<Event>, int)> GetFiltredEventsByUserId(Guid userid, DateTime fromDate, DateTime toDate, string filter, int count, int page, string orderBy)
         
         {

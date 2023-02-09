@@ -23,42 +23,6 @@ namespace Application.Services
             _eventRepository = eventRepository;
         }
 
-
-        //do usunięcia
-        public async Task<ServiceResponse<EventCalendarModel>> GetEventsList(CalendarFilter filter, Guid userid, int pageNumber = 1, int pageSize = 10, string orderBy = null, bool orderDesc = false)
-        {
-            var events = await _eventRepository.GetEventsWithComments(
-                userid,
-                filter.FromDate,
-                filter.ToDate,
-                filter.Filter,
-                pageNumber,
-                pageSize,
-                orderBy,
-                orderDesc);
-
-            if (events.totalCount == 0)
-            {
-                return new ServiceResponse<EventCalendarModel>()
-                {
-                    Success = false,
-                    Message = "Brak wyników"
-                };
-            }
-
-            return new ServiceResponse<EventCalendarModel>()
-            {
-                Data = new EventCalendarModel()
-                {
-                    Events = _mapper.Map<List<EventOnListModel>>(events.events),
-                    TotalCount = events.totalCount,
-                    EventsFrom = ((pageNumber - 1) * pageSize) + 1,
-                    EventsTo = (pageNumber * pageSize),
-                    TotalPages = (int)Math.Ceiling(events.totalCount / (double)pageSize)
-                }
-            };
-        }
-
         public async Task<ServiceResponse<EventListModel>> GetEventsListByUser(Guid userId, CalendarFilter filter, int pageNumber, int pageSize, string orderBy)
         {
             (var events, int eventsCount) = await _eventRepository
