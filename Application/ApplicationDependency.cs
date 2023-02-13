@@ -24,6 +24,7 @@ namespace Application
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ICalendarService, CalendarService>();
+            services.AddScoped<IEventService, EventService>();
 
             services.AddFluentValidationAutoValidation();
 

@@ -10,5 +10,7 @@ namespace Persistance.Repositories.Interfaces
     public interface IEventRepository
     {
         Task<(List<Event>, int)> GetFiltredEventsByUserId(Guid userid, DateTime fromDate, DateTime toDate, string filter, int count, int page, string orderBy);
+        Task<Event> GetEventById(int eventId);
+        Task<Event> EditEvent(Event updatedEvent);
     }
 }

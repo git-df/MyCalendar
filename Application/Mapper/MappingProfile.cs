@@ -11,7 +11,7 @@ namespace Application.Mapper
 {
     public class MappingProfile : Profile
     {
-        public MappingProfile() 
+        public MappingProfile()
         {
             CreateMap<User, UserSignInModel>().ReverseMap();
             CreateMap<User, UserSignUpModel>().ReverseMap();
@@ -19,6 +19,11 @@ namespace Application.Mapper
             CreateMap<User, UserDataChangeModel>().ReverseMap();
 
             CreateMap<EventOnListModel, Event>().ReverseMap();
+            CreateMap<Event, EventDetailsModel>()
+                .ForMember(dest => dest.Author, opt => opt.MapFrom(src => src.User.FirstName + " " + src.User.LastName));
+
+            CreateMap<Comment, CommentOnEventModel>()
+                .ForMember(dest => dest.Author, opt => opt.MapFrom(src => src.User.FirstName + " " + src.User.LastName));
         }
     }
 }

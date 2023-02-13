@@ -33,13 +33,22 @@ namespace Application.Models
     }
 
 
-    //to usunięcia
-    public class EventCalendarModel
+    public class EventDetailsModel
     {
-        public List<EventOnListModel> Events { get; set; }
-        public int TotalPages { get; set; }
-        public int EventsFrom { get; set; }
-        public int EventsTo { get; set; }
-        public int TotalCount { get; set; }
+        public int Id { get; set; }
+        public string Title { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+        public string Label { get; set; } = string.Empty;
+        public DateTime EventDate { get; set; }
+        public DateTime? EndEventDate { get; set; }
+
+        public bool Editable { get; set; } = false;
+
+        public string Author { get; set; } = string.Empty;
+
+        public List<CommentOnEventModel> Comments { get; set; } = new List<CommentOnEventModel>();
     }
+
+
+
 }

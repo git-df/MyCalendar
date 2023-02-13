@@ -16,7 +16,7 @@ builder.Services.AddAuthentication(
         op.Cookie.Name = "mcAuth";
         op.LoginPath = "/Auth/SignIn";
         op.ExpireTimeSpan = TimeSpan.FromMinutes(20);
-        op.AccessDeniedPath = "/Home/Index";
+        op.AccessDeniedPath = "/Calendar/Index";
     });
 
 builder.Services.AddAuthorization(op => {

@@ -22,6 +22,22 @@ namespace Persistance.Repositories
             _context = context;
         }
 
+        public async Task<Event> EditEvent(Event updatedEvent)
+        {
+            _context.Events.Update(updatedEvent);
+            await _context.SaveChangesAsync();
+            return updatedEvent;
+        }
+
+        public async Task<Event> GetEventById(int eventId)
+        {
+            return await _context.Events
+                .Include(e => e.Comments).ThenInclude(c => c.User)
+                .Include(e => e.User)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(e => e.Id == eventId);
+        }
+
         public async Task<(List<Event>, int)> GetFiltredEventsByUserId(Guid userid, DateTime fromDate, DateTime toDate, string filter, int count, int page, string orderBy)
         
         {

@@ -19,6 +19,7 @@ namespace MyCalendar.Pages.Auth
 
         public IActionResult OnGet()
         {
+            ViewData["nav"] = "disable";
             if (User.Identity.IsAuthenticated)
                 return RedirectToPage("/Index");
 
@@ -27,6 +28,7 @@ namespace MyCalendar.Pages.Auth
 
         public async Task<IActionResult> OnPostAsync()
         {
+            ViewData["nav"] = "disable";
             var response = await _authService.SignUp(UserSignUpModel);
 
             if (!response.Success)

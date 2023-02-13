@@ -30,11 +30,13 @@ namespace MyCalendar.Pages.Auth
             if (User.Identity.IsAuthenticated)
                 return RedirectToPage("/Index");
 
+            ViewData["nav"] = "disable";
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
+            ViewData["nav"] = "disable";
             var response = await _authService.SignIn(UserSignInModel);
 
             if (!response.Success)
@@ -43,12 +45,13 @@ namespace MyCalendar.Pages.Auth
                 return Page();
             }
 
+            await SignIn(response.Data);
+
             if (ReturnUrl == null)
             {
                 return RedirectToPage("/Index");
             }
 
-            await SignIn(response.Data);
             return Page();
         }
 
