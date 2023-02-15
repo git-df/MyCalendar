@@ -21,9 +21,11 @@ namespace Application.Mapper
             CreateMap<EventOnListModel, Event>().ReverseMap();
             CreateMap<Event, EventDetailsModel>()
                 .ForMember(dest => dest.Author, opt => opt.MapFrom(src => src.User.FirstName + " " + src.User.LastName));
+            CreateMap<Event, EventAddModel>().ReverseMap();
 
             CreateMap<Comment, CommentOnEventModel>()
                 .ForMember(dest => dest.Author, opt => opt.MapFrom(src => src.User.FirstName + " " + src.User.LastName));
+            CreateMap<Comment, CommentAddModel>().ReverseMap();
         }
     }
 }

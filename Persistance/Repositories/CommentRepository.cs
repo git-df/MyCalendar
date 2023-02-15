@@ -1,4 +1,5 @@
-﻿using Persistance.Data;
+﻿using Domain.Entity;
+using Persistance.Data;
 using Persistance.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,13 @@ namespace Persistance.Repositories
         public CommentRepository(mcContext context)
         {
             _context = context;
+        }
+
+        public async Task<Comment> AddComment(Comment comment)
+        {
+            _context.Comments.Add(comment);
+            await _context.SaveChangesAsync();
+            return comment;
         }
     }
 }

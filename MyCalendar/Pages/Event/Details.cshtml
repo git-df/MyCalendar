@@ -42,12 +42,12 @@
                     <div class="row mb-3">
                         <div class="col-6">
                             <label for="EventDate" class="form-label">Od:</label>
-                            <input type="datetime" class="form-control" id="EventDate" asp-for="EventDetails.EventDate" />
+                            <input type="datetime-local" class="form-control" id="EventDate" asp-for="EventDetails.EventDate" />
                             <span class="text-danger" asp-validation-for="EventDetails.EventDate"></span>
                         </div>
                         <div class="col-6">
                             <label for="EndEventDate" class="form-label">Od:</label>
-                            <input type="datetime" class="form-control" id="EndEventDate" asp-for="EventDetails.EndEventDate" />
+                            <input type="datetime-local" class="form-control" id="EndEventDate" asp-for="EventDetails.EndEventDate" />
                             <span class="text-danger" asp-validation-for="EventDetails.EndEventDate"></span>
                         </div>
                     </div>
@@ -69,11 +69,11 @@
                     <div class="row mb-3">
                         <div class="col-6">
                             <label for="EventDate" class="form-label">Od:</label>
-                            <input type="datetime" class="form-control" id="EventDate" asp-for="EventDetails.EventDate" readonly />
+                            <input type="datetime-local" class="form-control" id="EventDate" asp-for="EventDetails.EventDate" readonly />
                         </div>
                         <div class="col-6">
                             <label for="EndEventDate" class="form-label">Od:</label>
-                            <input type="datetime" class="form-control" id="EndEventDate" asp-for="EventDetails.EndEventDate" readonly />
+                            <input type="datetime-local" class="form-control" id="EndEventDate" asp-for="EventDetails.EndEventDate" readonly />
                         </div>
                     </div>
                 }
@@ -101,6 +101,7 @@
                 }
             </table>
         }
+        <a class="btn btn-dark float-end" asp-page="/Comment/AddComment" asp-route-eventId="@Model.EventDetails.Id">Dodaj</a>
     </div>
 </div>
 

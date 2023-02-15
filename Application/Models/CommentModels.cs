@@ -9,8 +9,12 @@ namespace Application.Models
 {
     public class CommentOnEventModel
     {
-        public int Id { get; set; }
         public string Message { get; set; }
         public string Author { get; set; }
+    }
+
+    public class CommentAddModel
+    {
+        public string Message { get; set; }
     }
 }

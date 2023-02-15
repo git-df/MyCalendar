@@ -24,6 +24,7 @@ namespace MyCalendar.Pages.Event
         {
             if (eventId <= 0)
             {
+                EventDetails = new EventDetailsModel();
                 ViewData["Message"] = "B³êdne id";
                 return Page();
             }
@@ -33,6 +34,7 @@ namespace MyCalendar.Pages.Event
 
             if (!response.Success)
             {
+                EventDetails = new EventDetailsModel();
                 ViewData["Message"] = response.Message;
                 return Page();
             }

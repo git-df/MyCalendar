@@ -50,5 +50,12 @@ namespace Application.Models
     }
 
 
-
+    public class EventAddModel
+    {
+        public string Title { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+        public string Label { get; set; } = string.Empty;
+        public DateTime EventDate { get; set; } = DateTime.Now;
+        public DateTime? EndEventDate { get; set; } = DateTime.Now.AddHours(1);
+    }
 }

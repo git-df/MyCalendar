@@ -53,7 +53,9 @@
                             <th scope="col">
                                 <button class="w-100 btn" asp-page="./Index" asp-route-orderBy="@Model.EventList.OrderLabeleRoute" asp-route-pageNumber="@Model.EventList.CurrentPage" asp-route-size="@Model.EventList.CurrentSize" type="submit">Etykieta</button>
                             </th>
-                            <th scope="col"></th>
+                            <th scope="col">
+                                <a class="btn btn-dark float-end" asp-page="../Event/AddEvent" >Dodaj</a>
+                            </th>
                         </tr>
                     </thead>
                     <tbody class="text-center">
@@ -73,7 +75,7 @@
                                     @e.Label
                                 </td>
                                 <td>
-                                    <a class="btn btn-dark" asp-page="../Event/Details" asp-route-eventId="@e.Id">Więcej</a>
+                                    <a class="btn btn-dark float-end" asp-page="../Event/Details" asp-route-eventId="@e.Id">Więcej</a>
                                 </td>
                             </tr>
                         }
@@ -88,21 +90,22 @@
                         </button>
                         <ul class="dropdown-menu" style="min-width: 20px;">
                             <li class="p-1">
-                                <button class="btn btn-dark w-100" asp-page="./Index" asp-route-size="1" asp-route-orderBy="@Model.EventList.CurrentOrder" asp-route-pageNumber="@Model.EventList.CurrentPage" type="submit">1</button>
+                                <button class="btn btn-dark w-100" asp-page="./Index" asp-route-size="5" asp-route-orderBy="@Model.EventList.CurrentOrder" asp-route-pageNumber="1" type="submit">5</button>
                             </li>
                             <li class="p-1">
-                                <button class="btn btn-dark w-100" asp-page="./Index" asp-route-size="10" asp-route-orderBy="@Model.EventList.CurrentOrder" asp-route-pageNumber="@Model.EventList.CurrentPage" type="submit">10</button>
+                                <button class="btn btn-dark w-100" asp-page="./Index" asp-route-size="10" asp-route-orderBy="@Model.EventList.CurrentOrder" asp-route-pageNumber="1" type="submit">10</button>
                             </li>
                             <li class="p-1">
-                                <button class="btn btn-dark w-100" asp-page="./Index" asp-route-size="25" asp-route-orderBy="@Model.EventList.CurrentOrder" asp-route-pageNumber="@Model.EventList.CurrentPage" type="submit">25</button>
+                                <button class="btn btn-dark w-100" asp-page="./Index" asp-route-size="25" asp-route-orderBy="@Model.EventList.CurrentOrder" asp-route-pageNumber="1" type="submit">25</button>
                             </li>
                             <li class="p-1">
-                                <button class="btn btn-dark w-100" asp-page="./Index" asp-route-size="50" asp-route-orderBy="@Model.EventList.CurrentOrder" asp-route-pageNumber="@Model.EventList.CurrentPage" type="submit">50</button>
+                                <button class="btn btn-dark w-100" asp-page="./Index" asp-route-size="50" asp-route-orderBy="@Model.EventList.CurrentOrder" asp-route-pageNumber="1" type="submit">50</button>
                             </li>
                         </ul>
                     </div>
                 </div>
                 <div class="float-end">
+                    <span>@Model.EventList.PagesCount stron łącznie</span>
                     @if (Model.EventList.CurrentPage > 1)
                     {
                         <button class="btn border border-dark" asp-page="./Index" asp-route-pageNumber="@((Model.EventList.CurrentPage)-1)" asp-route-orderBy="@Model.EventList.CurrentOrder" asp-route-size="@Model.EventList.CurrentSize" type="submit">@("<")</button>

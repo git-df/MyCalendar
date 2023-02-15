@@ -2,6 +2,8 @@
 using Application.Responses;
 using Application.Services.Interfaces;
 using AutoMapper;
+using Domain.Entity;
+using FluentValidation;
 using Microsoft.Extensions.Logging;
 using Persistance.Repositories.Interfaces;
 using System;
@@ -16,13 +18,48 @@ namespace Application.Services
     {
         private readonly IEventRepository _eventRepository;
         private readonly IAccesRequestRepository _accesRequestRepository;
+        private readonly IValidator<EventDetailsModel> _eventDetailsValidator;
+        private readonly IValidator<EventAddModel> _eventAddValidator;
         private readonly IMapper _mapper;
 
-        public EventService(IEventRepository eventRepository, IAccesRequestRepository accesRequestRepository, IMapper mapper)
+        public EventService(IEventRepository eventRepository, IAccesRequestRepository accesRequestRepository, IMapper mapper, IValidator<EventDetailsModel> eventDetailsvalidator, IValidator<EventAddModel> eventAddValidator)
         {
             _eventRepository = eventRepository;
             _accesRequestRepository = accesRequestRepository;
             _mapper = mapper;
+            _eventDetailsValidator = eventDetailsvalidator;
+            _eventAddValidator = eventAddValidator;
+        }
+
+        public async Task<ServiceResponse<int>> AddEvent(Guid userId, EventAddModel eventAdd)
+        {
+            if (!_eventAddValidator.Validate(eventAdd).IsValid)
+            {
+                return new ServiceResponse<int>()
+                {
+                    Success = false
+                };
+            }
+
+            var newEvent = _mapper.Map<Event>(eventAdd);
+
+            newEvent.UserId = userId;
+
+            var addedEvent = await _eventRepository.AddEvent(newEvent);
+
+            if (addedEvent.Id < 1)
+            {
+                return new ServiceResponse<int>()
+                { 
+                    Success = false,
+                    Message = "Nie udało się dodać wydarzenia"
+                };
+            }
+
+            return new ServiceResponse<int>()
+            {
+                Data = addedEvent.Id
+            };
         }
 
         public async Task<ServiceResponse<EventDetailsModel>> GetEventDetail(Guid userId, int eventId)
@@ -69,6 +106,14 @@ namespace Application.Services
 
         public async Task<ServiceResponse<EventDetailsModel>> UpdateEvent(Guid userId, EventDetailsModel eventDetails)
         {
+            if (!_eventDetailsValidator.Validate(eventDetails).IsValid)
+            {
+                return new ServiceResponse<EventDetailsModel>()
+                {
+                    Success = false
+                };
+            }
+
             var eventFromBase = await _eventRepository.GetEventById(eventDetails.Id);
 
             if (eventFromBase == null)

@@ -12,5 +12,6 @@ namespace Application.Services.Interfaces
     {
         Task<ServiceResponse<EventDetailsModel>> GetEventDetail(Guid userId, int eventId);
         Task<ServiceResponse<EventDetailsModel>> UpdateEvent(Guid userId, EventDetailsModel eventDetails);
+        Task<ServiceResponse<int>> AddEvent(Guid userId, EventAddModel eventAdd);
     }
 }

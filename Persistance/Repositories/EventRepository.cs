@@ -22,6 +22,13 @@ namespace Persistance.Repositories
             _context = context;
         }
 
+        public async Task<Event> AddEvent(Event addedEvent)
+        {
+            _context.Events.Add(addedEvent);
+            await _context.SaveChangesAsync();
+            return addedEvent;
+        }
+
         public async Task<Event> EditEvent(Event updatedEvent)
         {
             _context.Events.Update(updatedEvent);
