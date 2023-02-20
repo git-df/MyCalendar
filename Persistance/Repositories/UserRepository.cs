@@ -28,12 +28,15 @@ namespace Persistance.Repositories
 
         public async Task<User> GetByEmail(string email)
         {
-            return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            return await _context.Users
+                .AsNoTracking()
+                .FirstOrDefaultAsync(u => u.Email == email);
         }
 
         public async Task<User> GetByGuid(Guid guid)
         {
-            return await _context.Users.FindAsync(guid);
+            return await _context.Users
+                .FindAsync(guid);
         }
 
         public async Task<User> Update(User user)

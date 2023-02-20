@@ -26,6 +26,7 @@ namespace Application
             services.AddScoped<ICalendarService, CalendarService>();
             services.AddScoped<IEventService, EventService>();
             services.AddScoped<ICommentService, CommentService>();
+            services.AddScoped<IAccesRequestService, AccesRequestService>();
 
             services.AddFluentValidationAutoValidation();
 
@@ -36,6 +37,7 @@ namespace Application
             services.AddScoped<IValidator<EventDetailsModel>, EventDetailsValidator>();
             services.AddScoped<IValidator<EventAddModel>, EventAddValidator>();
             services.AddScoped<IValidator<CommentAddModel>, CommentAddValidator>();
+            services.AddScoped<IValidator<AccesRequestSendModel>, AccesRequestAddValidator>();
 
             return services;
         }

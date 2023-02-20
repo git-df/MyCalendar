@@ -29,37 +29,34 @@
             </div>
         </div>
     </div>
-
-    @if (ViewData["Message"] == null)
-    {
-        <div class="bg-secondary bg-opacity-10 py-2">
-            <div class="container">
-                <table class="table">
-                    <div class="p-2">
-                        <span class="float-start">Wszystkich: @Model.EventList.EventsCount</span>
-                        <span class="float-end">Od @Model.EventList.FirstEventNumber do @Model.EventList.LastEventNumber</span>
-                    </div>
-                    <thead>
-                        <tr>
-                            <th scope="col">
-                                <button class="w-100 btn" asp-page="./Index" asp-route-orderBy="@Model.EventList.OrderDateRoute" asp-route-pageNumber="@Model.EventList.CurrentPage" asp-route-size="@Model.EventList.CurrentSize" as type="submit">Od</button>
-                            </th>
-                            <th scope="col">
-                                <button class="w-100 btn" asp-page="./Index" asp-route-orderBy="@Model.EventList.OrderEndDateRoute" asp-route-pageNumber="@Model.EventList.CurrentPage" asp-route-size="@Model.EventList.CurrentSize" type="submit">Do</button>
-                            </th>
-                            <th scope="col">
-                                <button class="w-100 btn" asp-page="./Index" asp-route-orderBy="@Model.EventList.OrderTitleRoute" asp-route-pageNumber="@Model.EventList.CurrentPage" asp-route-size="@Model.EventList.CurrentSize" type="submit">Tytuł</button>
-                            </th>
-                            <th scope="col">
-                                <button class="w-100 btn" asp-page="./Index" asp-route-orderBy="@Model.EventList.OrderLabeleRoute" asp-route-pageNumber="@Model.EventList.CurrentPage" asp-route-size="@Model.EventList.CurrentSize" type="submit">Etykieta</button>
-                            </th>
-                            <th scope="col">
-                                <a class="btn btn-dark float-end" asp-page="../Event/AddEvent" >Dodaj</a>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-center">
-                        @foreach (var e in Model.EventList.Events)
+    <div class="bg-secondary bg-opacity-10 py-2">
+        <div class="container">
+            <table class="table">
+                <div class="p-2">
+                    <span class="float-start">Wszystkich: @Model.EventList.EventsCount</span>
+                    <span class="float-end">Od @Model.EventList.FirstEventNumber do @Model.EventList.LastEventNumber</span>
+                </div>
+                <thead>
+                    <tr>
+                        <th scope="col">
+                            <button class="w-100 btn" asp-page="./Index" asp-route-orderBy="@Model.EventList.OrderDateRoute" asp-route-pageNumber="@Model.EventList.CurrentPage" asp-route-size="@Model.EventList.CurrentSize" as type="submit">Od</button>
+                        </th>
+                        <th scope="col">
+                            <button class="w-100 btn" asp-page="./Index" asp-route-orderBy="@Model.EventList.OrderEndDateRoute" asp-route-pageNumber="@Model.EventList.CurrentPage" asp-route-size="@Model.EventList.CurrentSize" type="submit">Do</button>
+                        </th>
+                        <th scope="col">
+                            <button class="w-100 btn" asp-page="./Index" asp-route-orderBy="@Model.EventList.OrderTitleRoute" asp-route-pageNumber="@Model.EventList.CurrentPage" asp-route-size="@Model.EventList.CurrentSize" type="submit">Tytuł</button>
+                        </th>
+                        <th scope="col">
+                            <button class="w-100 btn" asp-page="./Index" asp-route-orderBy="@Model.EventList.OrderLabeleRoute" asp-route-pageNumber="@Model.EventList.CurrentPage" asp-route-size="@Model.EventList.CurrentSize" type="submit">Etykieta</button>
+                        </th>
+                        <th scope="col">
+                            <a class="btn btn-dark float-end" asp-page="../Event/AddEvent">Dodaj</a>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+                    @if (ViewData["Message"] == null) foreach (var e in Model.EventList.Events)
                         {
                             <tr>
                                 <td>
@@ -79,52 +76,51 @@
                                 </td>
                             </tr>
                         }
-                    </tbody>
-                </table>
-            </div>
-            <div class="p-4 mb-2">
-                <div class="float-start">
-                    <div class="btn-group">
-                        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Ilość
-                        </button>
-                        <ul class="dropdown-menu" style="min-width: 20px;">
-                            <li class="p-1">
-                                <button class="btn btn-dark w-100" asp-page="./Index" asp-route-size="5" asp-route-orderBy="@Model.EventList.CurrentOrder" asp-route-pageNumber="1" type="submit">5</button>
-                            </li>
-                            <li class="p-1">
-                                <button class="btn btn-dark w-100" asp-page="./Index" asp-route-size="10" asp-route-orderBy="@Model.EventList.CurrentOrder" asp-route-pageNumber="1" type="submit">10</button>
-                            </li>
-                            <li class="p-1">
-                                <button class="btn btn-dark w-100" asp-page="./Index" asp-route-size="25" asp-route-orderBy="@Model.EventList.CurrentOrder" asp-route-pageNumber="1" type="submit">25</button>
-                            </li>
-                            <li class="p-1">
-                                <button class="btn btn-dark w-100" asp-page="./Index" asp-route-size="50" asp-route-orderBy="@Model.EventList.CurrentOrder" asp-route-pageNumber="1" type="submit">50</button>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="float-end">
-                    <span>@Model.EventList.PagesCount stron łącznie</span>
-                    @if (Model.EventList.CurrentPage > 1)
+                    else
                     {
-                        <button class="btn border border-dark" asp-page="./Index" asp-route-pageNumber="@((Model.EventList.CurrentPage)-1)" asp-route-orderBy="@Model.EventList.CurrentOrder" asp-route-size="@Model.EventList.CurrentSize" type="submit">@("<")</button>
+                        <tr>
+                            <td colspan="5">
+                                <p class="p-2">@ViewData["Message"]</p>
+                            </td>
+                        </tr>
                     }
-                    <button class="btn border border-dark" asp-page="./Index" asp-route-pageNumber="@(Model.EventList.CurrentPage)" asp-route-orderBy="@Model.EventList.CurrentOrder" asp-route-size="@Model.EventList.CurrentSize" type="submit">@(Model.EventList.CurrentPage)</button>
-                    @if (Model.EventList.CurrentPage < Model.EventList.PagesCount)
-                    {
-                        <button class="btn border border-dark" asp-page="./Index" asp-route-pageNumber="@((Model.EventList.CurrentPage)+1)" asp-route-orderBy="@Model.EventList.CurrentOrder" asp-route-size="@Model.EventList.CurrentSize" type="submit">@(">")</button>
-                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="p-4 mb-2">
+            <div class="float-start">
+                <div class="btn-group">
+                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Ilość
+                    </button>
+                    <ul class="dropdown-menu" style="min-width: 20px;">
+                        <li class="p-1">
+                            <button class="btn btn-dark w-100" asp-page="./Index" asp-route-size="5" asp-route-orderBy="@Model.EventList.CurrentOrder" asp-route-pageNumber="1" type="submit">5</button>
+                        </li>
+                        <li class="p-1">
+                            <button class="btn btn-dark w-100" asp-page="./Index" asp-route-size="10" asp-route-orderBy="@Model.EventList.CurrentOrder" asp-route-pageNumber="1" type="submit">10</button>
+                        </li>
+                        <li class="p-1">
+                            <button class="btn btn-dark w-100" asp-page="./Index" asp-route-size="25" asp-route-orderBy="@Model.EventList.CurrentOrder" asp-route-pageNumber="1" type="submit">25</button>
+                        </li>
+                        <li class="p-1">
+                            <button class="btn btn-dark w-100" asp-page="./Index" asp-route-size="50" asp-route-orderBy="@Model.EventList.CurrentOrder" asp-route-pageNumber="1" type="submit">50</button>
+                        </li>
+                    </ul>
                 </div>
             </div>
-        </div>
-    }
-    else
-    {
-        <div class="py-2">
-            <div class="container">
-                <p>@ViewData["Message"]</p>
+            <div class="float-end">
+                <span>@Model.EventList.PagesCount stron łącznie</span>
+                @if (Model.EventList.CurrentPage > 1)
+                {
+                    <button class="btn border border-dark" asp-page="./Index" asp-route-pageNumber="@((Model.EventList.CurrentPage)-1)" asp-route-orderBy="@Model.EventList.CurrentOrder" asp-route-size="@Model.EventList.CurrentSize" type="submit">@("<")</button>
+                }
+                <button class="btn border border-dark" asp-page="./Index" asp-route-pageNumber="@(Model.EventList.CurrentPage)" asp-route-orderBy="@Model.EventList.CurrentOrder" asp-route-size="@Model.EventList.CurrentSize" type="submit">@(Model.EventList.CurrentPage)</button>
+                @if (Model.EventList.CurrentPage < Model.EventList.PagesCount)
+                {
+                    <button class="btn border border-dark" asp-page="./Index" asp-route-pageNumber="@((Model.EventList.CurrentPage)+1)" asp-route-orderBy="@Model.EventList.CurrentOrder" asp-route-size="@Model.EventList.CurrentSize" type="submit">@(">")</button>
+                }
             </div>
         </div>
-    }
+    </div>
 </form>

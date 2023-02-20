@@ -26,6 +26,15 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Calendar/Index">Mój kalendarz</a>
                             </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Udostępnianie</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" asp-page="/AccesRequest/ToUser">Otrzymane prośby</a>
+                                    <a class="dropdown-item" asp-page="/AccesRequest/FromUser">Wysłane prośby</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" asp-page="/AccesRequest/SendRequest">Wyślij prośbę</a>
+                                </div>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link btn btn-dark text-light" asp-area="" asp-page="/Auth/SignOut">Wyloguj się</a>
                             </li>
