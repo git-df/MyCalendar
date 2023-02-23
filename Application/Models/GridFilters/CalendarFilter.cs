@@ -8,8 +8,8 @@ namespace Application.Models.GridFilters
 {
     public class CalendarFilter
     {
-        public DateTime FromDate { get; set; } = DateTime.UtcNow;
-        public DateTime ToDate { get; set; } = DateTime.UtcNow.AddMonths(1);
-        public string Filter { get; set; } = null;
+        public DateTime FromDate { get; set; } = DateTime.UtcNow.Date;
+        public DateTime ToDate { get; set; } = DateTime.UtcNow.AddMonths(1).Date;
+        public string Filter { get; set; } = String.Empty;
     }
 }

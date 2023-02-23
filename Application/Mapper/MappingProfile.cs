@@ -18,7 +18,8 @@ namespace Application.Mapper
             CreateMap<User, UserInfoModel>().ReverseMap();
             CreateMap<User, UserDataChangeModel>().ReverseMap();
 
-            CreateMap<EventOnListModel, Event>().ReverseMap();
+            CreateMap<Event, EventOnListModel>()
+                .ForMember(dest => dest.Author, opt => opt.MapFrom(src => src.User.FirstName + " " + src.User.LastName));
             CreateMap<Event, EventDetailsModel>()
                 .ForMember(dest => dest.Author, opt => opt.MapFrom(src => src.User.FirstName + " " + src.User.LastName));
             CreateMap<Event, EventAddModel>().ReverseMap();

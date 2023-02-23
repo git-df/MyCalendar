@@ -26,7 +26,7 @@ namespace Application.Services
         public async Task<ServiceResponse<EventListModel>> GetEventsListByUser(Guid userId, CalendarFilter filter, int pageNumber, int pageSize, string orderBy)
         {
             (var events, int eventsCount) = await _eventRepository
-                .GetFiltredEventsByUserId(userId, filter.FromDate, filter.ToDate, filter.Filter, pageSize, pageNumber, orderBy);
+                .GetFiltredEventsByUserId(userId, filter.FromDate, filter.ToDate.AddDays(1), filter.Filter, pageSize, pageNumber, orderBy);
 
             if (!(eventsCount > 0) || events == null)
             {

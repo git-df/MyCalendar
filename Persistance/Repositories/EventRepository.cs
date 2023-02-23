@@ -46,13 +46,18 @@ namespace Persistance.Repositories
         }
 
         public async Task<(List<Event>, int)> GetFiltredEventsByUserId(Guid userid, DateTime fromDate, DateTime toDate, string filter, int count, int page, string orderBy)
-        
+
         {
             var query = _context.Events
-                .Where(e => e.UserId == userid && e.EventDate >= fromDate && e.EventDate < toDate)
+                .Include(e => e.User)
+                .ThenInclude(u => u.accesRequestsToUser)
+                .Where(e => (e.User.accesRequestsToUser.FirstOrDefault(a => a.FromUserId == userid && a.IsAccepted) != null) || e.UserId == userid)
+                .Where(e => e.EventDate >= fromDate && e.EventDate < toDate)
                 .Where(e => filter == null ||
-                    e.Title.ToLower().Contains(filter.ToLower()) ||
-                    e.Label.ToLower().Contains(filter.ToLower()));
+                        e.Title.ToLower().Contains(filter.ToLower()) ||
+                        e.Label.ToLower().Contains(filter.ToLower()) ||
+                        (e.User.FirstName+e.User.LastName).ToLower().Contains(filter.ToLower())
+                    );
 
             var totalCount = await query.CountAsync();
 
@@ -70,6 +75,8 @@ namespace Persistance.Repositories
                     case "date_desc": query = query.OrderByDescending(e => e.EventDate); break;
                     case "endDate": query = query.OrderBy(e => e.EndEventDate); break;
                     case "endDate_desc": query = query.OrderByDescending(e => e.EndEventDate); break;
+                    case "author": query = query.OrderBy(e => e.User.FirstName + e.User.LastName); break;
+                    case "author_desc": query = query.OrderByDescending(e => e.User.FirstName + e.User.LastName); break;
                 }
             }
 

@@ -14,6 +14,7 @@ namespace Application.Models
         public string Label { get; set; }
         public DateTime EventDate { get; set; }
         public DateTime? EndEventDate { get; set; }
+        public string Author { get; set; } = string.Empty;
     }
 
     public class EventListModel
@@ -27,6 +28,7 @@ namespace Application.Models
         public string OrderLabeleRoute { get; set; } = string.Empty;
         public string OrderDateRoute { get; set; } = string.Empty;
         public string OrderEndDateRoute { get; set; } = string.Empty;
+        public string OrderAuthorRoute { get; set; } = string.Empty;
         public int CurrentPage { get; set; } = 1;
         public int CurrentSize { get; set; } = 1;
         public string CurrentOrder { get; set; } = string.Empty;

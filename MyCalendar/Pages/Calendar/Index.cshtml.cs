@@ -28,8 +28,8 @@ namespace MyCalendar.Pages.Calendar
 
         public async Task<IActionResult> OnGetAsync(int pageNumber = 1, int size = 10, string orderBy = "date")
         {
-            EventList = EventList != null ? EventList : new EventListModel();
-            Filter = Filter != null ? Filter : new CalendarFilter();
+            EventList = EventList ?? new EventListModel();
+            Filter = Filter ?? new CalendarFilter();
 
             var response = await _calendarService
                 .GetEventsListByUser(Guid.Parse(User.FindFirstValue("Id")), Filter, pageNumber, size, orderBy);
@@ -47,6 +47,7 @@ namespace MyCalendar.Pages.Calendar
             EventList.OrderLabeleRoute = orderBy == "label" ? "label_desc" : "label";
             EventList.OrderDateRoute = orderBy == "date" ? "date_desc" : "date";
             EventList.OrderEndDateRoute = orderBy == "endDate" ? "endDate_desc" : "endDate";
+            EventList.OrderAuthorRoute = orderBy == "author" ? "author_desc" : "author";
             EventList.CurrentPage = pageNumber;
             EventList.CurrentOrder = orderBy;
             EventList.CurrentSize = size;
