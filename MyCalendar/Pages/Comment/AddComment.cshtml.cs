@@ -43,6 +43,7 @@ namespace MyCalendar.Pages.Comment
                 {
                     ViewData["Message"] = response.Message;
                 }
+                EventId = eventId;
                 return Page();
             }
 
