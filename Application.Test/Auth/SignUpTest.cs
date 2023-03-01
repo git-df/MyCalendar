@@ -39,9 +39,9 @@ namespace Application.Test.Auth
 
             var userSignUp = new UserSignUpModel()
             {
-                Email = "test@test.test",
-                FirstName = "Test",
-                LastName = "Test",
+                Email = "test4@test.test",
+                FirstName = "test4first",
+                LastName = "test4last",
                 Password = "Haslo123!",
                 ConfirmPassword = "Haslo123!"
             };
@@ -68,9 +68,9 @@ namespace Application.Test.Auth
 
             var userSignUp = new UserSignUpModel()
             {
-                Email = "cjasinski@mc.pl",
-                FirstName = "Test",
-                LastName = "Test",
+                Email = "test3@test.test",
+                FirstName = "Ntest3first",
+                LastName = "Ntest3last",
                 Password = "Haslo123!",
                 ConfirmPassword = "Haslo123!"
             };

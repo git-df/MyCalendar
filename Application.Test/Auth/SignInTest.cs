@@ -41,7 +41,7 @@ namespace Application.Test.Auth
 
             var userSignIn = new UserSignInModel()
             {
-                Email = "hadamski@mc.pl",
+                Email = "test1@test.test",
                 Password = "Haslo123!"
             };
 
@@ -60,7 +60,7 @@ namespace Application.Test.Auth
 
             var userSignIn = new UserSignInModel()
             {
-                Email = "cjasinski@mc.pl",
+                Email = "test2@test.test",
                 Password = "123456789"
             };
 
@@ -78,7 +78,7 @@ namespace Application.Test.Auth
 
             var userSignIn = new UserSignInModel()
             {
-                Email = "123cjasinski@mc.pl",
+                Email = "Atest1@test.test",
                 Password = "123456789"
             };
 

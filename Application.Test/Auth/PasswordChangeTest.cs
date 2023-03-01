@@ -52,7 +52,7 @@ namespace Application.Test.Auth
             response.Data.ShouldBeOfType<UserInfoModel>();
             response.Message.ShouldBeEmpty();
 
-            var signInResponse = await authService.SignIn(new UserSignInModel() { Email = "hadamski@mc.pl", Password = "HasloZmienione" });
+            var signInResponse = await authService.SignIn(new UserSignInModel() { Email = "test1@test.test", Password = "HasloZmienione" });
 
             signInResponse.Success.ShouldBeTrue();
         }
@@ -76,7 +76,7 @@ namespace Application.Test.Auth
             response.Data.ShouldBeNull();
             response.Message.ShouldBe("Nie znaleziono użytkownika o takim id");
 
-            var signInResponse = await authService.SignIn(new UserSignInModel() { Email = "hadamski@mc.pl", Password = "HasloZmienione" });
+            var signInResponse = await authService.SignIn(new UserSignInModel() { Email = "test1@test.test", Password = "HasloZmienione" });
 
             signInResponse.Success.ShouldBe(false);
         }
@@ -100,7 +100,7 @@ namespace Application.Test.Auth
             response.Data.ShouldBeNull();
             response.Message.ShouldBe("Błędne obecne hasło");
 
-            var signInResponse = await authService.SignIn(new UserSignInModel() { Email = "hadamski@mc.pl", Password = "HasloZmienione" });
+            var signInResponse = await authService.SignIn(new UserSignInModel() { Email = "test1@test.test", Password = "HasloZmienione" });
 
             signInResponse.Success.ShouldBe(false);
         }
@@ -147,7 +147,7 @@ namespace Application.Test.Auth
                 response.Data.ShouldBeNull();
                 response.Message.ShouldBeEmpty();
 
-                var signInResponse = await authService.SignIn(new UserSignInModel() { Email = "hadamski@mc.pl", Password = "Haslo123!" });
+                var signInResponse = await authService.SignIn(new UserSignInModel() { Email = "test1@test.test", Password = "Haslo123!" });
                 signInResponse.Success.ShouldBe(true);
             }
         }

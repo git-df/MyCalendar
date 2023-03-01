@@ -43,9 +43,9 @@ namespace Application.Test.User
             response.Data.ShouldNotBeNull();
             response.Data.ShouldBeOfType<UserInfoModel>();
             response.Data.Id.ShouldBe(Guid.Parse("fb8e707d-9a9d-40f6-9819-968add26204e"));
-            response.Data.FirstName.ShouldBe("henryk");
-            response.Data.LastName.ShouldBe("adamski");
-            response.Data.Email.ShouldBe("hadamski@mc.pl");
+            response.Data.FirstName.ShouldBe("test1first");
+            response.Data.LastName.ShouldBe("test1last");
+            response.Data.Email.ShouldBe("test1@test.test");
             response.Message.ShouldBeEmpty();
         }
 
