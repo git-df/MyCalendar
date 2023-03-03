@@ -13,14 +13,14 @@ namespace Application.Test.Mocks
     {
         public static Mock<ICommentRepository> GetCommentRepository()
         {
-            var comments = ContextMock.GetComments();
+            var _context = new ContextMock();
 
             var mockCommentRepository = new Mock<ICommentRepository>();
 
             mockCommentRepository.Setup(repo => repo.AddComment(It.IsAny<Domain.Entity.Comment>())).ReturnsAsync(
                 (Domain.Entity.Comment comment) =>
                 {
-                    comments.Add(comment);
+                    _context.Comments.Add(comment);
                     return comment;
                 });
 

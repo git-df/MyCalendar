@@ -14,38 +14,43 @@ namespace Application.Test.Mocks
     {
         public static Mock<IAccesRequestRepository> GetAccesRequestRepository()
         {
-            var AccesRequests = ContextMock.GetAccesRequests();
+            var _context = new ContextMock();
 
             var mockAccesRequestRepository = new Mock<IAccesRequestRepository>();
 
             mockAccesRequestRepository.Setup(repo => repo.CheckAcces(It.IsAny<Guid>(), It.IsAny<Guid>())).ReturnsAsync(
                 (Guid fromUser, Guid toUser) =>
                 {
-                    return AccesRequests.FirstOrDefault(a => a.FromUserId == fromUser && a.ToUserId == toUser && a.IsAccepted);
+                    return _context.AccesRequests
+                        .FirstOrDefault(a => a.FromUserId == fromUser && a.ToUserId == toUser && a.IsAccepted);
                 });
 
             mockAccesRequestRepository.Setup(repo => repo.GetById(It.IsAny<int>())).ReturnsAsync(
                 (int id) =>
                 {
-                    return AccesRequests.Find(a => a.Id == id);
+                    return _context.AccesRequests
+                        .Find(a => a.Id == id);
                 });
 
             mockAccesRequestRepository.Setup(repo => repo.Get(It.IsAny<Guid>(), It.IsAny<Guid>())).ReturnsAsync(
                 (Guid fromUser, Guid toUser) =>
                 {
-                    return AccesRequests.FirstOrDefault(a => a.FromUserId == fromUser && a.ToUserId == toUser);
+                    return _context.AccesRequests
+                        .FirstOrDefault(a => a.FromUserId == fromUser && a.ToUserId == toUser);
                 });
 
             mockAccesRequestRepository.Setup(repo => repo.GetAllFromUser(It.IsAny<Guid>())).ReturnsAsync(
                 (Guid fromUser) =>
                 {
-                    return AccesRequests.Where(a => a.FromUserId == fromUser).ToList();
+                    return _context.AccesRequests
+                        .Where(a => a.FromUserId == fromUser).ToList();
                 });
 
             mockAccesRequestRepository.Setup(repo => repo.GetAllToUser(It.IsAny<Guid>())).ReturnsAsync(
                 (Guid toUser) =>
                 {
-                    return AccesRequests.Where(a => a.ToUserId == toUser).ToList();
+                    return _context.AccesRequests
+                        .Where(a => a.ToUserId == toUser).ToList();
                 });
 
             mockAccesRequestRepository.Setup(repo => repo.Add(It.IsAny<Guid>(), It.IsAny<Guid>())).ReturnsAsync(
@@ -57,23 +62,23 @@ namespace Application.Test.Mocks
                         ToUserId = toUser
                     };
 
-                    AccesRequests.Add(request);
+                    _context.AccesRequests.Add(request);
                     return request;
                 });
 
             mockAccesRequestRepository.Setup(repo => repo.Accept(It.IsAny<Domain.Entity.AccesRequest>())).ReturnsAsync(
                 (Domain.Entity.AccesRequest accesRequest) =>
                 {
-                    AccesRequests.Remove(accesRequest);
+                    _context.AccesRequests.Remove(accesRequest);
                     accesRequest.IsAccepted = true;
-                    AccesRequests.Add(accesRequest);
+                    _context.AccesRequests.Add(accesRequest);
                     return accesRequest;
                 });
 
             mockAccesRequestRepository.Setup(repo => repo.Delete(It.IsAny<Domain.Entity.AccesRequest>())).Returns(
                 (Domain.Entity.AccesRequest accesRequest) =>
                 {
-                    AccesRequests.Remove(accesRequest);
+                    _context.AccesRequests.Remove(accesRequest);
                 });
 
             return mockAccesRequestRepository;

@@ -5,6 +5,7 @@ using Application.Services.Interfaces;
 using Application.Test.Mocks;
 using Application.Validators;
 using AutoMapper;
+using Domain.Entity;
 using FluentValidation;
 using Moq;
 using Persistance.Repositories.Interfaces;
@@ -89,53 +90,26 @@ namespace Application.Test.Auth
             response.Message.ShouldBe("Nie znaleziono użytkownika z takim mailem");
         }
 
-        [Fact]
-        public async Task Auth_SignIn_NoValid()
+        [Theory]
+        [InlineData("", "")]
+        [InlineData("abc", "")]
+        [InlineData("abc@abc.ab", "")]
+        [InlineData("", "abc")]
+        [InlineData("", "Haslo123!")]
+        [InlineData("abc", "Haslo123!")]
+        public async Task Auth_SignIn_NoValid(string email, string password)
         {
             var authService = new AuthService(_mapper, _userRepositoryMock.Object, new UserSignInValidator(), new UserSignUpValidator(), new UserPasswordChangeValidator());
 
-            var usersSignIn = new List<UserSignInModel> 
-            { 
-                new UserSignInModel()
-                {
-                    Email = "",
-                    Password = ""
-                },
-                new UserSignInModel()
-                {
-                    Email = "abc",
-                    Password = ""
-                },
-                new UserSignInModel()
-                {
-                    Email = "abc@abc.ab",
-                    Password = ""
-                },
-                new UserSignInModel()
-                {
-                    Email = "",
-                    Password = "abc"
-                },
-                new UserSignInModel()
-                {
-                    Email = "",
-                    Password = "Haslo123!"
-                },
-                new UserSignInModel()
-                {
-                    Email = "abc",
-                    Password = "Haslo123!"
-                }
-            };
-
-            foreach (var user in usersSignIn)
+            var response = await authService.SignIn(new UserSignInModel()
             {
-                var response = await authService.SignIn(user);
+                Email = email,
+                Password = password
+            });
 
-                response.Success.ShouldBe(false);
-                response.Data.ShouldBeNull();
-                response.Message.ShouldBeEmpty();
-            }
+            response.Success.ShouldBe(false);
+            response.Data.ShouldBeNull();
+            response.Message.ShouldBeEmpty();
         }
     }
 }

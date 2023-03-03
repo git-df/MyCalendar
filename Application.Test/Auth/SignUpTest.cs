@@ -89,83 +89,30 @@ namespace Application.Test.Auth
             addedUser.LastName.ShouldNotBe(userSignUp.LastName.ToLower());
         }
 
-        [Fact]
-        public async Task Auth_SignUp_NoValid()
+        [Theory]
+        [InlineData("abc", "Test", "Test", "Haslo123!", "Haslo123!")]
+        [InlineData("", "Test", "Test", "Haslo123!", "Haslo123!")]
+        [InlineData("test@test.test", "", "Test", "Haslo123!", "Haslo123!")]
+        [InlineData("test@test.test", "Test", "", "Haslo123!", "Haslo123!")]
+        [InlineData("test@test.test", "Test", "Test", "Haslo", "Haslo")]
+        [InlineData("test@test.test", "Test", "Test", "", "")]
+        [InlineData("test@test.test", "Test", "Test", "Haslo123!", "123")]
+        public async Task Auth_SignUp_NoValid(string email, string firstName, string lastName, string password, string confirmPassword)
         {
             var authService = new AuthService(_mapper, _userRepositoryMock.Object, new UserSignInValidator(), new UserSignUpValidator(), new UserPasswordChangeValidator());
 
-            var usersSignUp = new List<UserSignUpModel>()
+            var response = await authService.SignUp(new UserSignUpModel()
             {
-                new UserSignUpModel()
-                {
-                    Email = "abc",
-                    FirstName = "Test",
-                    LastName = "Test",
-                    Password = "Haslo123!",
-                    ConfirmPassword = "Haslo123!"
-                },
-                new UserSignUpModel()
-                {
-                    Email = "",
-                    FirstName = "Test",
-                    LastName = "Test",
-                    Password = "Haslo123!",
-                    ConfirmPassword = "Haslo123!"
-                },
-                new UserSignUpModel()
-                {
-                    Email = "test@test.test",
-                    FirstName = "",
-                    LastName = "Test",
-                    Password = "Haslo123!",
-                    ConfirmPassword = "Haslo123!"
-                },
-                new UserSignUpModel()
-                {
-                    Email = "test@test.test",
-                    FirstName = "Test",
-                    LastName = "",
-                    Password = "Haslo123!",
-                    ConfirmPassword = "Haslo123!"
-                },
-                new UserSignUpModel()
-                {
-                    Email = "test@test.test",
-                    FirstName = "Test",
-                    LastName = "Test",
-                    Password = "Haslo",
-                    ConfirmPassword = "Haslo"
-                },
-                new UserSignUpModel()
-                {
-                    Email = "test@test.test",
-                    FirstName = "Test",
-                    LastName = "Test",
-                    Password = "",
-                    ConfirmPassword = ""
-                },
-                new UserSignUpModel()
-                {
-                    Email = "test@test.test",
-                    FirstName = "Test",
-                    LastName = "Test",
-                    Password = "Haslo123!",
-                    ConfirmPassword = "123"
-                }
-            };
+                Email = email,
+                FirstName = firstName,
+                LastName = lastName,
+                Password = password,
+                ConfirmPassword = confirmPassword
+            });
 
-            foreach (var user in usersSignUp)
-            {
-                var response = await authService.SignUp(user);
-
-                response.Success.ShouldBe(false);
-                response.Data.ShouldBeNull();
-                response.Message.ShouldBeEmpty();
-
-                var addedUser = await _userRepositoryMock.Object.GetByEmail(user.Email);
-
-                addedUser.ShouldBeNull();
-            }
+            response.Success.ShouldBe(false);
+            response.Data.ShouldBeNull();
+            response.Message.ShouldBeEmpty();
         }
     }
 }

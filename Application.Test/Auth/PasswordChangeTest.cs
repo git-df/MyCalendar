@@ -4,6 +4,7 @@ using Application.Services;
 using Application.Test.Mocks;
 using Application.Validators;
 using AutoMapper;
+using Domain.Entity;
 using Moq;
 using Persistance.Repositories.Interfaces;
 using Shouldly;
@@ -105,51 +106,34 @@ namespace Application.Test.Auth
             signInResponse.Success.ShouldBe(false);
         }
 
-        [Fact]
-        public async Task Auth_PasswordChange_NoValid()
+        [Theory]
+        [InlineData("", "HasloZmienione", "HasloZmienione")]
+        [InlineData("Haslo123!blad", "", "HasloZmienione")]
+        [InlineData("Haslo123!blad", "abc", "HasloZmienione")]
+        [InlineData("Haslo123!blad", "HasloZmienione", "abc")]
+        public async Task Auth_PasswordChange_NoValid(string oldPassword, string password, string confirmPasword)
         {
             var authService = new AuthService(_mapper, _userRepositoryMock.Object, new UserSignInValidator(), new UserSignUpValidator(), new UserPasswordChangeValidator());
 
-            var usersPasswordChange = new List<UserPasswordChangeModel>()
-            {
-                new UserPasswordChangeModel()
+            var response = await authService.PasswordChange(
+                Guid.Parse("fb8e707d-9a9d-40f6-9819-968add26204e"), new UserPasswordChangeModel()
                 {
-                    OldPassword = "",
-                    Password = "HasloZmienione",
-                    ConfirmPassword = "HasloZmienione"
-                },
-                new UserPasswordChangeModel()
-                {
-                    OldPassword = "Haslo123!blad",
-                    Password = "",
-                    ConfirmPassword = "HasloZmienione"
-                },
-                new UserPasswordChangeModel()
-                {
-                    OldPassword = "Haslo123!blad",
-                    Password = "abc",
-                    ConfirmPassword = "HasloZmienione"
-                },
-                new UserPasswordChangeModel()
-                {
-                    OldPassword = "Haslo123!blad",
-                    Password = "HasloZmienione",
-                    ConfirmPassword = "abc"
-                }
-            };
+                    OldPassword = oldPassword,
+                    Password = password,
+                    ConfirmPassword = confirmPasword
+                });
 
-            foreach (var user in usersPasswordChange)
-            {
-                var response = await authService.PasswordChange(
-                Guid.Parse("fb8e707d-9a9d-40f6-9819-968add26204e"), user);
+            response.Success.ShouldBe(false);
+            response.Data.ShouldBeNull();
+            response.Message.ShouldBeEmpty();
 
-                response.Success.ShouldBe(false);
-                response.Data.ShouldBeNull();
-                response.Message.ShouldBeEmpty();
+            var signInResponse = await authService.SignIn(new UserSignInModel() 
+            { 
+                Email = "test1@test.test", 
+                Password = "Haslo123!" 
+            });
 
-                var signInResponse = await authService.SignIn(new UserSignInModel() { Email = "test1@test.test", Password = "Haslo123!" });
-                signInResponse.Success.ShouldBe(true);
-            }
+            signInResponse.Success.ShouldBe(true);
         }
     }
 }

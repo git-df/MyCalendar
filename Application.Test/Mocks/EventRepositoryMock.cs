@@ -14,28 +14,28 @@ namespace Application.Test.Mocks
     {
         public static Mock<IEventRepository> GetEventRepository()
         {
-            var events = ContextMock.GetEvents();
+            var _context = new ContextMock();
 
             var mockEventRepository = new Mock<IEventRepository>();
 
             mockEventRepository.Setup(repo => repo.GetEventById(It.IsAny<int>())).ReturnsAsync(
                 (int id) =>
                 {
-                    return events.FirstOrDefault(e => e.Id == id);
+                    return _context.Events.FirstOrDefault(e => e.Id == id);
                 });
 
             mockEventRepository.Setup(repo => repo.AddEvent(It.IsAny<Domain.Entity.Event>())).ReturnsAsync(
                 (Domain.Entity.Event addedEvent) => 
                 {
-                    events.Add(addedEvent);
+                    _context.Events.Add(addedEvent);
                     return addedEvent;
                 });
 
             mockEventRepository.Setup(repo => repo.EditEvent(It.IsAny<Domain.Entity.Event>())).ReturnsAsync(
                 (Domain.Entity.Event updatedEvent) =>
                 {
-                    events.Remove(updatedEvent);
-                    events.Add(updatedEvent);
+                    _context.Events.Remove(updatedEvent);
+                    _context.Events.Add(updatedEvent);
                     return updatedEvent;
                 });
 
