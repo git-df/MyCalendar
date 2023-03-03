@@ -20,6 +20,7 @@ namespace Application.Test.Mocks
             mockCommentRepository.Setup(repo => repo.AddComment(It.IsAny<Domain.Entity.Comment>())).ReturnsAsync(
                 (Domain.Entity.Comment comment) =>
                 {
+                    comment.Id = _context.Comments.Max(c => c.Id) + 1;
                     _context.Comments.Add(comment);
                     return comment;
                 });

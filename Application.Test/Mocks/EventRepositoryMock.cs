@@ -25,8 +25,9 @@ namespace Application.Test.Mocks
                 });
 
             mockEventRepository.Setup(repo => repo.AddEvent(It.IsAny<Domain.Entity.Event>())).ReturnsAsync(
-                (Domain.Entity.Event addedEvent) => 
+                (Domain.Entity.Event addedEvent) =>
                 {
+                    addedEvent.Id = _context.Events.Max(e => e.Id) + 1;
                     _context.Events.Add(addedEvent);
                     return addedEvent;
                 });

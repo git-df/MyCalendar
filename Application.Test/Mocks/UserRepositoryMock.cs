@@ -27,6 +27,7 @@ namespace Application.Test.Mocks
             mockUserRepository.Setup(repo => repo.Create(It.IsAny<Domain.Entity.User> ())).ReturnsAsync(
                 (Domain.Entity.User user) =>
                 {
+                    user.Id = Guid.NewGuid();
                     _context.Users.Add(user);
                     return user;
                 });

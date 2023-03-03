@@ -58,6 +58,7 @@ namespace Application.Test.Mocks
                 {
                     var request = new Domain.Entity.AccesRequest()
                     {
+                        Id = _context.AccesRequests.Max(a => a.Id) + 1,
                         FromUserId = fromUser,
                         ToUserId = toUser
                     };

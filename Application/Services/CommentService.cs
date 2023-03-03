@@ -49,7 +49,7 @@ namespace Application.Services
                 return new ServiceResponse<int>()
                 {
                     Success = false,
-                    Message = "Nie udało się dodać wydarzenia"
+                    Message = "Nie udało się dodać komentarza"
                 };
             }
 
